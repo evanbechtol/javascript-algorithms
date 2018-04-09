@@ -9,9 +9,10 @@ const util = require( '../util' );
  *   Best-case: O(n) comparisons, O(1) swaps
  *   Worst-case space complexity: O(n) total, O(1) auxiliary
  * @param arr {object} Array to be sorted
+ * @param sortOrder {string} Order to sort, can be set to either 'asc' or 'desc'. Defaults to 'asc'
  * @returns {object} Returns sorted array
  */
-function insertionSort ( arr ) {
+function insertionSort ( arr, sortOrder = 'asc' ) {
   if ( arr.length ) {
     for ( let i = 1; i < arr.length; i++ ) {
       let current  = arr[ i ],
@@ -21,7 +22,8 @@ function insertionSort ( arr ) {
        * look at the element immediately before the one we are currently holding in "current".
        * If arr[ previous ] > elem, then we know we need to perform a swap.
        */
-      while ( previous >= 0 && arr[ previous ] > current ) {
+
+      while ( previous >= 0 && sortComparison( sortOrder, arr[ previous ], current ) ) {
         arr[ previous + 1 ] = arr[ previous-- ];
       }
 
@@ -34,6 +36,16 @@ function insertionSort ( arr ) {
   return [];
 }
 
+/**
+ * @description Performs the appropriate comparison to sort the array in either ascending or descending order
+ * @param sortOrder {string} If set to 'asc' will sort in ascending order, all else sorts descending
+ * @param previous {*} Previous element to perform comparison with
+ * @param current {*} Current element to perform comparison with
+ * @returns {boolean} Returns results of the comparison to determine sorting
+ */
+function sortComparison ( sortOrder, previous, current ) {
+  return sortOrder === 'asc' ? previous > current : previous < current;
+}
 
 function main () {
   let arr = [];
@@ -41,7 +53,8 @@ function main () {
     arr.push( util.randomNumber() );
   }
   console.log( `Unsorted array : ${arr}` );
-  console.log( `Sorted array   : ${insertionSort( arr )}` );
+  console.log( `Sorted array ascending   : ${insertionSort( arr, 'asc' )}` );
+  console.log( `Sorted array descending  : ${insertionSort( arr, 'desc' )}` );
 }
 
 main();
