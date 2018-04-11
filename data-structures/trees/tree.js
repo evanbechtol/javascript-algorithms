@@ -1,5 +1,6 @@
 function Tree ( root = null ) {
-  this.root = root;
+  this.root      = root;
+  this.nodeCount = 0;
 }
 
 /**

@@ -1,6 +1,6 @@
 const TreeNode = require( './tree-node.js' ),
       Tree     = require( './tree' ),
-      util     = require( '../util' );
+      util     = require( '../../util/index' );
 
 /**
  * @description Creates a new instance of a BST (Binary Search Tree) object
@@ -17,24 +17,29 @@ function BST ( tree = new Tree() ) {
  * @returns {*} Returns the inserted node
  */
 BST.prototype.insert = function ( node ) {
-  let parent  = null,
-      current = this.tree.root;
+  if ( node ) {
+    let parent  = null,
+        current = this.tree.root;
 
-  while ( current !== null ) {
-    parent  = current;
-    current = node.key < current.key ? current.left : current.right;
+    while ( current !== null ) {
+      parent  = current;
+      current = node.key < current.key ? current.left : current.right;
+    }
+
+    node.parent = parent;
+    if ( parent === null ) {
+      this.tree.root = node; // Tree was empty
+    } else if ( node.key < parent.key ) {
+      parent.left = node; // Insert left child
+    } else {
+      parent.right = node; // Insert right child
+    }
+
+    this.tree.nodeCount++;
+    return node;
   }
 
-  node.parent = parent;
-  if ( parent === null ) {
-    this.tree.root = node; // Tree was empty
-  } else if ( node.key < parent.key ) {
-    parent.left = node; // Insert left child
-  } else {
-    parent.right = node; // Insert right child
-  }
-
-  return node;
+  return null;
 };
 
 /**
@@ -63,6 +68,7 @@ BST.prototype.delete = function ( node ) {
       min.left        = node.left;
       min.left.parent = min;
     }
+    this.tree.nodeCount--;
     return node;
   }
   return null;
@@ -87,7 +93,7 @@ function main () {
   let bst           = new BST(),
       nodesToInsert = 8;
 
-  console.log( '---Build the BST---');
+  console.log( '---Build the BST---' );
   for ( let i = 0; i < nodesToInsert; i++ ) {
     let newNode = new TreeNode( null, null, null, util.randomNumber( 20, 1 ), util.randomNumber( 1000, 0 ) );
     console.log( `Inserted node with key : ${bst.insert( newNode ).key }` );
@@ -96,7 +102,7 @@ function main () {
   let nodeToDelete            = bst.tree.minimum(),
       successorOfNodeToDelete = bst.tree.successor( nodeToDelete );
 
-  console.log( '---Tree Walking---');
+  console.log( '---Tree Walking---' );
   console.log( `Performing In order Walk of tree:` );
   console.log( bst.tree.inOrderWalk() );
 
@@ -106,7 +112,7 @@ function main () {
   console.log( `Performing Post order Walk of tree:` );
   console.log( bst.tree.postOrderWalk() );
 
-  console.log('---Method Testing---');
+  console.log( '---Method Testing---' );
   console.log( `Search for  node with key ${nodeToDelete.key} : ${bst.tree.get( nodeToDelete.key ) ? 'Node found' : 'Node not found'}` );
   console.log( `Successor of ${nodeToDelete.key} is node ${successorOfNodeToDelete.key}` );
   console.log( `Parent  of ${successorOfNodeToDelete.key} is node ${successorOfNodeToDelete.parent ? successorOfNodeToDelete.parent.key : 'null'}` );
@@ -117,6 +123,7 @@ function main () {
   console.log( `Minimum value in tree is: ${bst.tree.minimum().key}` );
   console.log( `Maximum value in tree is: ${bst.tree.maximum().key}` );
   console.log( bst.tree.inOrderWalk() );
+  console.log( `Number of nodes in tree: ${bst.tree.nodeCount}` );
 }
 
 main();
