@@ -4,7 +4,7 @@ const TreeNode = require( './tree-node.js' ),
 
 /**
  * @description Creates a new instance of a BST (Binary Search Tree) object
- * @param tree {object} Optional parameter. Can either pass an existing tree, or if omitted creates a new empty tree
+ * @param tree {Tree} Optional parameter. Can either pass an existing tree, or if omitted creates a new empty tree
  * @constructor
  */
 function BST ( tree = new Tree() ) {
@@ -13,7 +13,7 @@ function BST ( tree = new Tree() ) {
 
 /**
  * @description Inserts a TreeNode object into the tree, in the proper position following BST properties
- * @param node {object} Instance of TreeNode object
+ * @param node {TreeNode} Instance of TreeNode object
  * @returns {*} Returns the inserted node
  */
 BST.prototype.insert = function ( node ) {
@@ -44,7 +44,7 @@ BST.prototype.insert = function ( node ) {
 
 /**
  * @description Attempts to delete the node from the tree provided.
- * @param node {object} Instance of TreeNode object
+ * @param node {TreeNode} Instance of TreeNode object
  * @returns {*} Returns deleted node if node was found and deleted, otherwise returns null
  */
 BST.prototype.delete = function ( node ) {
@@ -76,8 +76,8 @@ BST.prototype.delete = function ( node ) {
 
 /**
  * @description Transplants a subtree to a new parent. This is used when deleting nodes, and rearranging the BST
- * @param subtreeA {object} Instance of TreeNode object
- * @param subtreeB {object} Instance of TreeNode object
+ * @param subtreeA {TreeNode} Instance of TreeNode object
+ * @param subtreeB {TreeNode} Instance of TreeNode object
  */
 BST.prototype.transplant = function ( subtreeA, subtreeB ) {
   if ( subtreeA.parent === null ) {
@@ -87,6 +87,32 @@ BST.prototype.transplant = function ( subtreeA, subtreeB ) {
   } else {
     subtreeA.parent.right = subtreeB;
   }
+};
+
+/**
+ * @description Determines the minimum depth of a binary tree node.
+ * @param {TreeNode} node The node to check.
+ * @return {int} The minimum depth of a binary tree node.
+ */
+BST.prototype.minDepth = function ( node ) {
+  return node ? 1 + Math.min( this.minDepth( node.left ), this.minDepth( node.right ) ) : 0;
+};
+
+/**
+ * @description Determines the maximum depth of a binary tree node.
+ * @param {TreeNode} node The node to check.
+ * @return {int} The maximum depth of a binary tree node.
+ */
+BST.prototype.maxDepth = function ( node ) {
+  return node ? 1 + Math.max( this.maxDepth( node.left ), this.maxDepth( node.right ) ) : 0;
+};
+
+/**
+ * @description Determines whether a binary tree is balanced.
+ * @returns {boolean} Whether the tree is balanced.
+ */
+BST.prototype.isBalanced = function () {
+  return this.tree.root ? this.maxDepth( this.tree.root ) - this.minDepth( this.tree.root ) <= 1 : false;
 };
 
 function main () {
@@ -124,6 +150,7 @@ function main () {
   console.log( `Maximum value in tree is: ${bst.tree.maximum().key}` );
   console.log( bst.tree.inOrderWalk() );
   console.log( `Number of nodes in tree: ${bst.tree.nodeCount}` );
+  console.log( `Is balanced: ${bst.isBalanced()}` );
 }
 
 main();
