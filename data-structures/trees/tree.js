@@ -1,3 +1,8 @@
+/**
+ * @description Constructor to create an instance of a Tree object
+ * @param root {object} Optional parameter. Can provide a root node to initialize tree with
+ * @constructor
+ */
 function Tree ( root = null ) {
   this.root      = root;
   this.nodeCount = 0;

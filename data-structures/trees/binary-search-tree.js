@@ -127,3 +127,5 @@ function main () {
 }
 
 main();
+
+module.exports = BST;
