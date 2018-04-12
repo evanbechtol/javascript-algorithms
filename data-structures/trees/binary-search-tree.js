@@ -35,7 +35,7 @@ BST.prototype.insert = function ( node ) {
       parent.right = node; // Insert right child
     }
 
-    this.tree.nodeCount++;
+    this.tree.size++;
     return node;
   }
 
@@ -68,7 +68,7 @@ BST.prototype.delete = function ( node ) {
       min.left        = node.left;
       min.left.parent = min;
     }
-    this.tree.nodeCount--;
+    this.tree.size--;
     return node;
   }
   return null;
@@ -149,10 +149,10 @@ function main () {
   console.log( `Minimum value in tree is: ${bst.tree.minimum().key}` );
   console.log( `Maximum value in tree is: ${bst.tree.maximum().key}` );
   console.log( bst.tree.inOrderWalk() );
-  console.log( `Number of nodes in tree: ${bst.tree.nodeCount}` );
+  console.log( `Number of nodes in tree: ${bst.tree.size}` );
   console.log( `Is balanced: ${bst.isBalanced()}` );
 }
 
-main();
+//main();
 
 module.exports = BST;
