@@ -10,7 +10,6 @@
  * @constructor
  */
 function AVLTreeNode ( parent = null, left = null, right = null, key = null, data = null, height = 0 ) {
-  this.parent = parent;
   this.left   = left;
   this.right  = right;
   this.key    = key;
