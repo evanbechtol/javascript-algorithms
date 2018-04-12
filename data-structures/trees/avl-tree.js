@@ -30,7 +30,7 @@ AVL.prototype.insert = function ( node ) {
 AVL.prototype._insert = function ( node, root = this.tree.root ) {
   if ( !root ) {
     root = new TreeNode( node.parent, node.left, node.right, node.key, node.data );
-  } else if ( this.compareTo( node.key, root.key ) < 0 ) {
+  } else if ( this.compare( node.key, root.key ) < 0 ) {
     /*
      * Recurse down the left subtree, check for an imbalance, if imbalance found
      * then determine which rotation to apply
@@ -50,7 +50,7 @@ AVL.prototype._insert = function ( node, root = this.tree.root ) {
      */
     root.right = this._insert( node, root.right );
     if ( this.heightDifference( root.left, root.right ) >= 2 ) {
-      if ( this.compareTo( node.key, root.key ) > 0 ) {
+      if ( this.compare( node.key, root.key ) > 0 ) {
         root = this.rotateWithRightChild( root );
       } else {
         root = this.doubleRotateWithRightChild( root );
@@ -139,7 +139,7 @@ AVL.prototype.maxDepth = function ( node ) {
  * @param b {int} Key from second TreeNode to compare
  * @returns {number} Returns 1 if a > b, -1 if a < b, and 0 if a === b
  */
-AVL.prototype.compareTo = function ( a, b ) {
+AVL.prototype.compare = function ( a, b ) {
   return a > b ? 1 : a < b ? -1 : 0;
 };
 
