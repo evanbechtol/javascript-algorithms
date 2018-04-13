@@ -6,17 +6,13 @@ function AVL ( bst = new BST() ) {
   this.tree = bst.tree;
 }
 
-AVL.prototype.heightDifference = function ( left, right ) {
-  return this.maxDepth( left ) - this.maxDepth( right );
+AVL.prototype.heightDifference = function ( node ) {
+  return node.leftHeight() - node.rightHeight();
+  //return this.maxDepth( left ) - this.maxDepth( right );
 };
 
 AVL.prototype.insert = function ( node ) {
   this.tree.root = this._insert( node, this.tree.root );
-
-  if ( this.heightDifference( root.left, root.right ) === 2 ) {
-
-  }
-
   this.tree.size++;
   return node;
 };
@@ -36,32 +32,35 @@ AVL.prototype._insert = function ( node, root = this.tree.root ) {
      * then determine which rotation to apply
      */
     root.left = this._insert( node, root.left );
-    if ( this.heightDifference( root.left, root.right ) >= 2 ) {
+    /*if ( this.heightDifference( root.left, root.right ) >= 2 ) {
       if ( node.key < root.left.key ) {
         root = this.rotateWithLeftChild( root );
       } else {
         root = this.doubleRotateWithLeftChild( root );
       }
-    }
+    }*/
   } else if ( node.key > root.key ) {
     /*
      * Recurse down the right subtree, check for an imbalance, if imbalance found
      * then determine which rotation to apply
      */
     root.right = this._insert( node, root.right );
-    if ( this.heightDifference( root.left, root.right ) >= 2 ) {
+    /*if ( this.heightDifference( root.left, root.right ) >= 2 ) {
       if ( this.compareTo( node.key, root.key ) > 0 ) {
         root = this.rotateWithRightChild( root );
       } else {
         root = this.doubleRotateWithRightChild( root );
       }
-    }
+    }*/
   } else {
     // Duplicate key
     this.tree.size--;
   }
 
+  // Update height and re-balance
   root.height = Math.max( this.maxDepth( root.left ), this.maxDepth( root.right ) ) + 1;
+  let heightDifference = this.heightDifference( root );
+
   return root;
 };
 
@@ -69,7 +68,7 @@ AVL.prototype._insert = function ( node, root = this.tree.root ) {
  * @description Rotate BST node with left child
  * @param node {TreeNode} Instance of TreeNode object to use in rotation
  */
-AVL.prototype.rotateWithLeftChild = function ( node ) {
+/*AVL.prototype.rotateWithLeftChild = function ( node ) {
   let tempNode = node.left;
 
   node.left       = tempNode && tempNode.right ? tempNode.right : null;
@@ -77,23 +76,23 @@ AVL.prototype.rotateWithLeftChild = function ( node ) {
   node.height     = Math.max( this.maxDepth( node.left ), this.maxDepth( node.right ) ) + 1;
   tempNode.height = Math.max( this.maxDepth( tempNode.left ), this.maxDepth( node.height ) ) + 1;
   return tempNode;
-};
+};*/
 
 /**
  * @description Double Rotate BST node: first left child, with its right child.
  *   Then node k3 with new left child.
  * @param node {TreeNode} Instance of TreeNode object to use in rotation
  */
-AVL.prototype.doubleRotateWithLeftChild = function ( node ) {
+/*AVL.prototype.doubleRotateWithLeftChild = function ( node ) {
   node.left = this.rotateWithRightChild( node.left );
   return this.rotateWithLeftChild( node );
-};
+};*/
 
 /**
  * @description Rotate BST node with right child
  * @param node {TreeNode} Instance of TreeNode object to use in rotation
  */
-AVL.prototype.rotateWithRightChild = function ( node ) {
+/*AVL.prototype.rotateWithRightChild = function ( node ) {
   let tempNode = node.right;
 
   node.right      = tempNode && tempNode.left ? tempNode.left : null;
@@ -101,17 +100,17 @@ AVL.prototype.rotateWithRightChild = function ( node ) {
   node.height     = Math.max( this.maxDepth( node.left ), this.maxDepth( node.right ) ) + 1;
   tempNode.height = Math.max( this.maxDepth( tempNode.left ), this.maxDepth( node.height ) ) + 1;
   return tempNode;
-};
+};*/
 
 /**
  * @description Double rotate BST node: first right child with its left child.
  *   Then node k1 with new right child.
  * @param node {TreeNode} Instance of TreeNode object to use in rotation
  */
-AVL.prototype.doubleRotateWithRightChild = function ( node ) {
+/*AVL.prototype.doubleRotateWithRightChild = function ( node ) {
   node.right = this.rotateWithLeftChild( node.right );
   return this.rotateWithRightChild( node );
-};
+};*/
 
 
 /**
@@ -119,9 +118,9 @@ AVL.prototype.doubleRotateWithRightChild = function ( node ) {
  * @param {TreeNode} node The node to check.
  * @return {int} The minimum depth of a binary tree node.
  */
-AVL.prototype.minDepth = function ( node ) {
+/*AVL.prototype.minDepth = function ( node ) {
   return node ? 1 + Math.min( this.minDepth( node.left ), this.minDepth( node.right ) ) : 0;
-};
+};*/
 
 /**
  * @description Determines the maximum depth of a binary tree node.
@@ -154,7 +153,7 @@ function main () {
   console.log( avl.tree.inOrderWalk() );
   console.log( avl.tree.preOrderWalk() );
   console.log( avl.tree.postOrderWalk() );
-  console.log( `Tree balance: ${avl.heightDifference( avl.tree.root.left, avl.tree.root.right )}` );
+  console.log( `Tree balance: ${avl.heightDifference( avl.tree.root )}` );
 }
 
 main();

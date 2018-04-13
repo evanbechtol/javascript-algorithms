@@ -16,4 +16,60 @@ function TreeNode ( parent = null, left = null, right = null, key = null, data =
   this.data   = data;
 }
 
+TreeNode.prototype.leftHeight = function () {
+  return !this.left ? -1 : this.left.height;
+};
+
+TreeNode.prototype.rightHeight = function () {
+  return !this.right ? -1 : this.right.height;
+};
+
+/**
+ * @description Rotate BST node with left child
+ * @param node {TreeNode} Instance of TreeNode object to use in rotation
+ */
+TreeNode.prototype.rotateWithLeftChild = function ( node ) {
+  let tempNode = node.left;
+
+  node.left       = tempNode && tempNode.right ? tempNode.right : null;
+  tempNode.right  = node;
+  node.height     = Math.max( this.maxDepth( node.left ), this.maxDepth( node.right ) ) + 1;
+  tempNode.height = Math.max( this.maxDepth( tempNode.left ), this.maxDepth( node.height ) ) + 1;
+  return tempNode;
+};
+
+/**
+ * @description Double Rotate BST node: first left child, with its right child.
+ *   Then node k3 with new left child.
+ * @param node {TreeNode} Instance of TreeNode object to use in rotation
+ */
+TreeNode.prototype.doubleRotateWithLeftChild = function ( node ) {
+  node.left = this.rotateWithRightChild( node.left );
+  return this.rotateWithLeftChild( node );
+};
+
+/**
+ * @description Rotate BST node with right child
+ * @param node {TreeNode} Instance of TreeNode object to use in rotation
+ */
+TreeNode.prototype.rotateWithRightChild = function ( node ) {
+  let tempNode = node.right;
+
+  node.right      = tempNode && tempNode.left ? tempNode.left : null;
+  tempNode.left   = node;
+  node.height     = Math.max( this.maxDepth( node.left ), this.maxDepth( node.right ) ) + 1;
+  tempNode.height = Math.max( this.maxDepth( tempNode.left ), this.maxDepth( node.height ) ) + 1;
+  return tempNode;
+};
+
+/**
+ * @description Double rotate BST node: first right child with its left child.
+ *   Then node k1 with new right child.
+ * @param node {TreeNode} Instance of TreeNode object to use in rotation
+ */
+TreeNode.prototype.doubleRotateWithRightChild = function ( node ) {
+  node.right = this.rotateWithLeftChild( node.right );
+  return this.rotateWithRightChild( node );
+};
+
 module.exports = TreeNode;
