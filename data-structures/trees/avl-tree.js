@@ -55,10 +55,13 @@ AVL.prototype.insert = function ( node ) {
  */
 AVL.prototype._insert = function ( node, root = this.tree.root ) {
   if ( !root ) {
+    // Insert the node
     root = new TreeNode( node.parent, node.left, node.right, node.key, node.data );
   } else if ( this.compare( node.key, root.key ) < 0 ) {
+    // Recurse into left subtree
     root.left = this._insert( node, root.left );
   } else if ( node.key > root.key ) {
+    // Recurse into right subtree
     root.right = this._insert( node, root.right );
   } else {
     // Duplicate key
