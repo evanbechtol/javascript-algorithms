@@ -107,7 +107,7 @@ AVL.prototype._delete = function ( key, root ) {
     root.right = this._delete( key, root.right );
   } else {
     // Key matches the root of this subtree
-    if( !( root.left || root.right ) ) {
+    if ( !( root.left || root.right ) ) {
       // This is a leaf node, and deletion is trivial
       root = null;
     } else if ( !root.left && root.right ) {
@@ -123,6 +123,10 @@ AVL.prototype._delete = function ( key, root ) {
        *   1) Smallest key in the right subtree
        *   2) Largest key in the left subtree
        */
+      let successor = this.tree.minimum( root.right );
+      root.key      = successor.key;
+      root.data     = successor.data;
+      root.right    = this._delete( successor.key, root.right );
     }
   }
 
@@ -130,7 +134,8 @@ AVL.prototype._delete = function ( key, root ) {
     return root;
   }
 
-
+  root.height      = Math.max( root.leftHeight(), root.rightHeight() ) + 1;
+  return this.deleteBalance( root );
 };
 
 /**
@@ -166,6 +171,40 @@ AVL.prototype.balance = function ( node, root ) {
 };
 
 /**
+ * @description
+ * @param root {TreeNode} Root of subtree
+ * @returns {TreeNode} Returns the new root node after rotations
+ */
+AVL.prototype.deleteBalance = function ( root ) {
+  let balanceState = getBalanceState( root );
+  if ( balanceState === BalanceState.UNBALANCED_LEFT ) {
+    // Case 1
+    if ( getBalanceState( root.left ) === BalanceState.BALANCED ||
+        getBalanceState( root.left ) === BalanceState.SLIGHTLY_UNBALANCED_LEFT ) {
+      return root.rotateWithLeftChild();
+    }
+    // Case 2
+    if ( getBalanceState( root.left ) === BalanceState.SLIGHTLY_UNBALANCED_RIGHT ) {
+      return root.doubleRotateLeft();
+    }
+  }
+
+  if ( balanceState === BalanceState.UNBALANCED_RIGHT ) {
+    // Case 4
+    if ( getBalanceState( root.right ) === BalanceState.BALANCED ||
+        getBalanceState( root.right ) === BalanceState.SLIGHTLY_UNBALANCED_RIGHT ) {
+      return root.rotateWithRightChild();
+    }
+    // Case 3
+    if ( getBalanceState( root.right ) === BalanceState.SLIGHTLY_UNBALANCED_LEFT ) {
+      return root.doubleRotateRight();
+    }
+  }
+
+  return root;
+};
+
+/**
  * @description Compares keys of TreeNodes
  * @param a {int} Key from first TreeNode to compare
  * @param b {int} Key from second TreeNode to compare
@@ -182,9 +221,11 @@ AVL.prototype.compare = function ( a, b ) {
  * @type {{UNBALANCED_RIGHT: number, BALANCED: number, UNBALANCED_LEFT: number}}
  */
 let BalanceState = {
-  UNBALANCED_RIGHT : 1,
-  BALANCED         : 3,
-  UNBALANCED_LEFT  : 5
+  UNBALANCED_RIGHT          : 1,
+  SLIGHTLY_UNBALANCED_RIGHT : 2,
+  BALANCED                  : 3,
+  SLIGHTLY_UNBALANCED_LEFT  : 4,
+  UNBALANCED_LEFT           : 5
 };
 
 /**
@@ -215,11 +256,18 @@ function main () {
    console.log( avl.tree.postOrderWalk() );*/
   console.log( `Number of nodes in tree ${avl.tree.size}` );
   console.log( `Tree balance: ${avl.heightDifference( avl.tree.root )}` );
-  console.log( avl.insert( new TreeNode( null, null, null, 10, util.randomNumber( 1000, 0 ) ) ).key );
+  console.log( avl.insert( new TreeNode( null, null, null, 47584759392346, util.randomNumber( 1000, 0 ) ) ).key );
   //console.log( avl.tree.inOrderWalk() );
-  let node = avl.tree.get( 10 );
-  console.log( `Attempting to retrieve key 10: ${node ? 'Node found' : 'Node does not exist' }` );
+  let node = avl.tree.get( 47584759392346 );
+  console.log( `Attempting to retrieve key 47584759392346: ${node ? 'Node found' : 'Node does not exist' }` );
   console.log( `Minimum key is ${avl.tree.minimum().key}, maximum is ${avl.tree.maximum().key}` );
+  console.log( `Number of nodes in tree ${avl.tree.size}` );
+  console.log( `Attempting to delete key 47584759392346 ${avl.delete( 47584759392346 )}` );
+  node = avl.tree.get( 47584759392346 );
+  console.log( `Attempting to retrieve key 47584759392346: ${node ? 'Node found' : 'Node does not exist' }` );
+  console.log( `Tree balance: ${avl.heightDifference( avl.tree.root )}` );
+  console.log( `Number of nodes in tree ${avl.tree.size}` );
+
 }
 
 main();

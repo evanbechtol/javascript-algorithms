@@ -129,7 +129,7 @@ Tree.prototype.get = function ( value ) {
   let node = this.root;
 
   let traverse = function ( node ) {
-    if ( node === null || node.key === value ) {
+    if ( !node || node.key === value ) {
       return node;
     }
 
