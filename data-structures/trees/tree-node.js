@@ -24,9 +24,29 @@ TreeNode.prototype.rightHeight = function () {
   return !this.right ? -1 : this.right.height;
 };
 
+TreeNode.prototype.rotateRight = function () {
+  let other    = this.left;
+  this.left    = other.right;
+  other.right  = this;
+  this.height  = Math.max( this.leftHeight(), this.rightHeight() ) + 1;
+  other.height = Math.max( other.leftHeight(), this.height ) + 1;
+  return other;
+};
+
+/**
+ * @description Rotate BST node with right child
+ */
+TreeNode.prototype.rotateLeft = function () {
+  let other    = this.right;
+  this.right   = other.left;
+  other.left   = this;
+  this.height  = Math.max( this.leftHeight(), this.rightHeight() ) + 1;
+  other.height = Math.max( other.rightHeight(), this.height ) + 1;
+  return other;
+};
+
 /**
  * @description Rotate BST node with left child
- * @param node {TreeNode} Instance of TreeNode object to use in rotation
  */
 TreeNode.prototype.rotateWithLeftChild = function ( node ) {
   let tempNode = node.left;
