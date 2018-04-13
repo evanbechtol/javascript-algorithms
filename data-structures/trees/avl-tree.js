@@ -1,6 +1,7 @@
 const TreeNode = require( './tree-node.js' ),
       BST      = require( './binary-search-tree' ),
-      util     = require( '../../util/index' );
+      util     = require( '../../util/index' ),
+      assert   = require( 'assert' );
 
 /**
  * @description AVL Trees are a type of BST, which abides by the following properties:
@@ -134,7 +135,7 @@ AVL.prototype._delete = function ( key, root ) {
     return root;
   }
 
-  root.height      = Math.max( root.leftHeight(), root.rightHeight() ) + 1;
+  root.height = Math.max( root.leftHeight(), root.rightHeight() ) + 1;
   return this.deleteBalance( root );
 };
 
@@ -247,27 +248,28 @@ function main () {
   let avl           = new AVL(),
       nodesToInsert = 1000;
 
+  assert( avl.tree.size === 0 );
+
   for ( let i = 0; i < nodesToInsert; i++ ) {
     let newNode = new TreeNode( null, null, null, util.randomNumber( Number.MAX_SAFE_INTEGER, 1 ), util.randomNumber( 1000, 0 ) );
     //console.log( `Inserted node with key : ${avl.insert( newNode ).key }` );
-    avl.insert( newNode );
+    assert( avl.insert( newNode ) );
   }
-  /* console.log( avl.tree.preOrderWalk() );
-   console.log( avl.tree.postOrderWalk() );*/
-  console.log( `Number of nodes in tree ${avl.tree.size}` );
-  console.log( `Tree balance: ${avl.heightDifference( avl.tree.root )}` );
-  console.log( avl.insert( new TreeNode( null, null, null, 47584759392346, util.randomNumber( 1000, 0 ) ) ).key );
-  //console.log( avl.tree.inOrderWalk() );
-  let node = avl.tree.get( 47584759392346 );
-  console.log( `Attempting to retrieve key 47584759392346: ${node ? 'Node found' : 'Node does not exist' }` );
-  console.log( `Minimum key is ${avl.tree.minimum().key}, maximum is ${avl.tree.maximum().key}` );
-  console.log( `Number of nodes in tree ${avl.tree.size}` );
-  console.log( `Attempting to delete key 47584759392346 ${avl.delete( 47584759392346 )}` );
-  node = avl.tree.get( 47584759392346 );
-  console.log( `Attempting to retrieve key 47584759392346: ${node ? 'Node found' : 'Node does not exist' }` );
-  console.log( `Tree balance: ${avl.heightDifference( avl.tree.root )}` );
-  console.log( `Number of nodes in tree ${avl.tree.size}` );
 
+  assert( avl.tree.size > 0 );
+  assert( avl.heightDifference( avl.tree.root ) < 2 );
+  assert( avl.insert( new TreeNode( null, null, null, 47584759392346, util.randomNumber( 1000, 0 ) ) ).key !== null );
+
+  let node = avl.tree.get( 47584759392346 );
+  assert( node );
+  assert( avl.tree.minimum().key );
+  assert( avl.tree.maximum().key );
+  assert( avl.tree.size );
+  assert( avl.delete( node.key ) );
+  assert.ifError( avl.tree.get( node.key ));
+  assert( avl.heightDifference( avl.tree.root ) < 2 );
+  assert( avl.tree.size > 0 );
 }
+
 
 main();
