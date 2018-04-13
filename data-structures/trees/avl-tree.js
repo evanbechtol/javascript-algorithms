@@ -36,7 +36,7 @@ AVL.prototype.heightDifference = function ( node ) {
 
 /**
  * @public
- * @description Attempts to insert the node into the AVL Tree, performs necessary rotations when necessary
+ * @description Attempts to insert the node into the AVL Tree, performs rotations when necessary
  * @param node {TreeNode} Instance of the TreeNode object to insert into the AVL tree
  * @returns {TreeNode} Returns new root node for AVL Tree
  */
@@ -69,7 +69,78 @@ AVL.prototype._insert = function ( node, root = this.tree.root ) {
   }
 
   // Update height and re-balance
-  root.height      = Math.max( root.leftHeight(), root.rightHeight() ) + 1;
+  return this.balance( node, root );
+};
+
+/**
+ * @public
+ * @description Attempts to delete the node with key fromthe AVL Tree, performs rotations when necessary
+ * @param key {*} Key of the node to delete. Data type must match that of the key for the node
+ * @returns {TreeNode} Returns key of the node that was deleted from the tree
+ */
+AVL.prototype.delete = function ( key ) {
+  this.tree.root = this._delete( key, this.tree.root );
+  this.tree.size--;
+  return key;
+};
+
+/**
+ * @description Attempts to delete the node from the subtree. Afterwards, the
+ *   subtree is rebalanced in the outward flow of recursion.
+ * @param key {*} Key for the node that is to be deleted
+ * @param root {TreeNode} Root of the subtree to search through
+ * @returns {TreeNode} Returns the new subtree root, after any deletions/rotations
+ * @private
+ */
+AVL.prototype._delete = function ( key, root ) {
+  if ( !root ) {
+    // Account for the decrement in size; no node found
+    this.tree.size++;
+    return root;
+  }
+
+  if ( this.compare( key, root.key ) < 0 ) {
+    // Recurse down the left subtree for deletion
+    root.left = this._delete( key, root.left );
+  } else if ( this.compare( key, root.key ) > 0 ) {
+    // Recurse down the right subtree for deletion
+    root.right = this._delete( key, root.right );
+  } else {
+    // Key matches the root of this subtree
+    if( !( root.left || root.right ) ) {
+      // This is a leaf node, and deletion is trivial
+      root = null;
+    } else if ( !root.left && root.right ) {
+      // Node only has a right leaf
+      root = root.right;
+    } else if ( root.left && !root.right ) {
+      // Node only has a left leaf
+      root = root.left;
+    } else {
+      /*
+       * Node has 2 children. To delete this node, a successor must be determined.
+       * Successor is:
+       *   1) Smallest key in the right subtree
+       *   2) Largest key in the left subtree
+       */
+    }
+  }
+
+  if ( !root ) {
+    return root;
+  }
+
+
+};
+
+/**
+ * @description Performs the necessary rotations in order to balance the subtree
+ * @param node {TreeNode} Node that is either inserted or deleted from subtree
+ * @param root {TreeNode} Root node of the subtree
+ * @returns {TreeNode} Returns the new root of the subtree after rotations
+ */
+AVL.prototype.balance = function ( node, root ) {
+  root.height      = root.getMaxHeight( root.leftHeight(), root.rightHeight() );
   let balanceState = getBalanceState( root );
 
   if ( balanceState === BalanceState.UNBALANCED_LEFT ) {
@@ -91,7 +162,6 @@ AVL.prototype._insert = function ( node, root = this.tree.root ) {
       return root.doubleRotateRight();
     }
   }
-
   return root;
 };
 
@@ -134,7 +204,7 @@ function getBalanceState ( node ) {
 
 function main () {
   let avl           = new AVL(),
-      nodesToInsert = 100;
+      nodesToInsert = 1000;
 
   for ( let i = 0; i < nodesToInsert; i++ ) {
     let newNode = new TreeNode( null, null, null, util.randomNumber( Number.MAX_SAFE_INTEGER, 1 ), util.randomNumber( 1000, 0 ) );
@@ -146,7 +216,7 @@ function main () {
   console.log( `Number of nodes in tree ${avl.tree.size}` );
   console.log( `Tree balance: ${avl.heightDifference( avl.tree.root )}` );
   console.log( avl.insert( new TreeNode( null, null, null, 10, util.randomNumber( 1000, 0 ) ) ).key );
-  console.log( avl.tree.inOrderWalk() );
+  //console.log( avl.tree.inOrderWalk() );
   let node = avl.tree.get( 10 );
   console.log( `Attempting to retrieve key 10: ${node ? 'Node found' : 'Node does not exist' }` );
   console.log( `Minimum key is ${avl.tree.minimum().key}, maximum is ${avl.tree.maximum().key}` );
