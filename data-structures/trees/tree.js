@@ -122,11 +122,12 @@ Tree.prototype.predecessor = function ( node ) {
 
 /**
  * @description Performs a recursive search for the value provided, across all nodes in the tree, starting from 'node'
- * @param node {object} Instance of TreeNode object
- * @param value {*} Value to search for, must match data type of the key
- * @returns {*} Returns the node found matching the value, or null if no node was found
+ * @param value {*} Key to search for, must match data type of the key
+ * @returns {*} Returns the node found matching the key, or null if no node was found
  */
-Tree.prototype.get = function ( node = this.root, value ) {
+Tree.prototype.get = function ( value ) {
+  let node = this.root;
+
   let traverse = function ( node ) {
     if ( node === null || node.key === value ) {
       return node;
@@ -138,6 +139,8 @@ Tree.prototype.get = function ( node = this.root, value ) {
       return traverse( node.right, value );
     }
   };
+
+  return traverse( node );
 };
 
 module.exports = Tree;

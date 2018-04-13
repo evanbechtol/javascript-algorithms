@@ -16,80 +16,84 @@ function TreeNode ( parent = null, left = null, right = null, key = null, data =
   this.data   = data;
 }
 
+/**
+ * @description Retrieves the height of the left subtree for the node
+ * @returns {number} Height of the left subtree of the node, or -1
+ */
 TreeNode.prototype.leftHeight = function () {
-  return !this.left ? -1 : this.left.height;
+  return this.left ? this.left.height : -1;
 };
 
+/**
+ * @description Retrieves the height of the right subtree for the node
+ * @returns {number} Height of the right subtree of the node, or -1
+ */
 TreeNode.prototype.rightHeight = function () {
-  return !this.right ? -1 : this.right.height;
+  return this.right ? this.right.height : -1;
 };
 
-TreeNode.prototype.rotateRight = function () {
-  let other    = this.left;
-  this.left    = other.right;
-  other.right  = this;
-  this.height  = Math.max( this.leftHeight(), this.rightHeight() ) + 1;
-  other.height = Math.max( other.leftHeight(), this.height ) + 1;
-  return other;
+/**
+ * @description Calculates the maximum height between the two subtree heights
+ * @param a {int} Height of node subtree as an integer
+ * @param b {int} Height of node subtree as an integer
+ * @returns {number} Returns the higher of the two values + 1 to account for root
+ */
+TreeNode.prototype.getMaxHeight = function ( a, b ) {
+  return Math.max( a, b ) + 1;
 };
 
 /**
  * @description Rotate BST node with right child
+ * @returns {TreeNode} Returns the rotated node, which is new subtree root
  */
-TreeNode.prototype.rotateLeft = function () {
-  let other    = this.right;
-  this.right   = other.left;
-  other.left   = this;
-  this.height  = Math.max( this.leftHeight(), this.rightHeight() ) + 1;
-  other.height = Math.max( other.rightHeight(), this.height ) + 1;
-  return other;
+TreeNode.prototype.rotateWithLeftChild = function () {
+  let tempNode = this.left;
+
+  this.left       = tempNode.right;
+  tempNode.right  = this;
+  this.height     = this.getMaxHeight( this.leftHeight(), this.rightHeight() );
+  tempNode.height = this.getMaxHeight( tempNode.leftHeight(), this.height );
+  return tempNode;
+};
+
+
+/**
+ * @description Rotate BST node with right child
+ * @returns {TreeNode} Returns the rotated node, which is new subtree root
+ */
+TreeNode.prototype.rotateWithRightChild = function () {
+  let tempNode = this.right;
+
+  this.right      = tempNode.left;
+  tempNode.left   = this;
+  this.height     = this.getMaxHeight( this.leftHeight(), this.rightHeight() );
+  tempNode.height = this.getMaxHeight( tempNode.rightHeight(), this.height );
+  return tempNode;
 };
 
 /**
  * @description Rotate BST node with left child
+ * @returns {TreeNode} Returns the rotated node, which is new subtree root
  */
-TreeNode.prototype.rotateWithLeftChild = function ( node ) {
-  let tempNode = node.left;
-
-  node.left       = tempNode && tempNode.right ? tempNode.right : null;
-  tempNode.right  = node;
-  node.height     = Math.max( this.maxDepth( node.left ), this.maxDepth( node.right ) ) + 1;
-  tempNode.height = Math.max( this.maxDepth( tempNode.left ), this.maxDepth( node.height ) ) + 1;
-  return tempNode;
-};
 
 /**
  * @description Double Rotate BST node: first left child, with its right child.
  *   Then node k3 with new left child.
- * @param node {TreeNode} Instance of TreeNode object to use in rotation
+ * @returns {TreeNode} Returns the rotated node, which is the new subtree root
  */
-TreeNode.prototype.doubleRotateWithLeftChild = function ( node ) {
-  node.left = this.rotateWithRightChild( node.left );
-  return this.rotateWithLeftChild( node );
-};
-
-/**
- * @description Rotate BST node with right child
- * @param node {TreeNode} Instance of TreeNode object to use in rotation
- */
-TreeNode.prototype.rotateWithRightChild = function ( node ) {
-  let tempNode = node.right;
-
-  node.right      = tempNode && tempNode.left ? tempNode.left : null;
-  tempNode.left   = node;
-  node.height     = Math.max( this.maxDepth( node.left ), this.maxDepth( node.right ) ) + 1;
-  tempNode.height = Math.max( this.maxDepth( tempNode.left ), this.maxDepth( node.height ) ) + 1;
-  return tempNode;
+TreeNode.prototype.doubleRotateLeft = function () {
+  this.left = this.left.rotateWithRightChild();
+  return this.rotateWithLeftChild();
 };
 
 /**
  * @description Double rotate BST node: first right child with its left child.
  *   Then node k1 with new right child.
- * @param node {TreeNode} Instance of TreeNode object to use in rotation
+ * @returns {TreeNode} Returns the rotated node, which is the new subtree root
  */
-TreeNode.prototype.doubleRotateWithRightChild = function ( node ) {
-  node.right = this.rotateWithLeftChild( node.right );
-  return this.rotateWithRightChild( node );
+TreeNode.prototype.doubleRotateRight = function () {
+  this.right = this.right.rotateWithLeftChild();
+  return this.rotateWithRightChild();
 };
 
 module.exports = TreeNode;
