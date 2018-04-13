@@ -6,17 +6,13 @@ function AVL ( bst = new BST() ) {
   this.tree = bst.tree;
 }
 
-AVL.prototype.heightDifference = function ( left, right ) {
-  return this.maxDepth( left ) - this.maxDepth( right );
+AVL.prototype.heightDifference = function ( node ) {
+  return node.leftHeight() - node.rightHeight();
+  //return this.maxDepth( left ) - this.maxDepth( right );
 };
 
 AVL.prototype.insert = function ( node ) {
   this.tree.root = this._insert( node, this.tree.root );
-
-  if ( this.heightDifference( root.left, root.right ) === 2 ) {
-
-  }
-
   this.tree.size++;
   return node;
 };
@@ -61,7 +57,10 @@ AVL.prototype._insert = function ( node, root = this.tree.root ) {
     this.tree.size--;
   }
 
+  // Update height and re-balance
   root.height = Math.max( this.maxDepth( root.left ), this.maxDepth( root.right ) ) + 1;
+  let heightDifference = this.heightDifference( root );
+
   return root;
 };
 
@@ -154,7 +153,7 @@ function main () {
   console.log( avl.tree.inOrderWalk() );
   console.log( avl.tree.preOrderWalk() );
   console.log( avl.tree.postOrderWalk() );
-  console.log( `Tree balance: ${avl.heightDifference( avl.tree.root.left, avl.tree.root.right )}` );
+  console.log( `Tree balance: ${avl.heightDifference( avl.tree.root )}` );
 }
 
 main();
