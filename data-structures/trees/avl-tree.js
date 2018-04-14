@@ -135,7 +135,7 @@ AVL.prototype._delete = function ( key, root ) {
     return root;
   }
 
-  root.height = Math.max( root.leftHeight(), root.rightHeight() ) + 1;
+  // Update height and balance tree
   return this.deleteBalance( root );
 };
 
@@ -177,27 +177,30 @@ AVL.prototype.balance = function ( node, root ) {
  * @returns {TreeNode} Returns the new root node after rotations
  */
 AVL.prototype.deleteBalance = function ( root ) {
+  root.height = Math.max( root.leftHeight(), root.rightHeight() ) + 1;
   let balanceState = getBalanceState( root );
   if ( balanceState === BalanceState.UNBALANCED_LEFT ) {
+    let leftBalanceState = getBalanceState( root.left );
     // Case 1
-    if ( getBalanceState( root.left ) === BalanceState.BALANCED ||
-        getBalanceState( root.left ) === BalanceState.SLIGHTLY_UNBALANCED_LEFT ) {
+    if ( leftBalanceState === BalanceState.BALANCED ||
+        leftBalanceState === BalanceState.SLIGHTLY_UNBALANCED_LEFT ) {
       return root.rotateWithLeftChild();
     }
     // Case 2
-    if ( getBalanceState( root.left ) === BalanceState.SLIGHTLY_UNBALANCED_RIGHT ) {
+    if ( leftBalanceState === BalanceState.SLIGHTLY_UNBALANCED_RIGHT ) {
       return root.doubleRotateLeft();
     }
   }
 
   if ( balanceState === BalanceState.UNBALANCED_RIGHT ) {
+    let rightBalanceState = getBalanceState( root.right );
     // Case 4
-    if ( getBalanceState( root.right ) === BalanceState.BALANCED ||
-        getBalanceState( root.right ) === BalanceState.SLIGHTLY_UNBALANCED_RIGHT ) {
+    if ( rightBalanceState === BalanceState.BALANCED ||
+        rightBalanceState === BalanceState.SLIGHTLY_UNBALANCED_RIGHT ) {
       return root.rotateWithRightChild();
     }
     // Case 3
-    if ( getBalanceState( root.right ) === BalanceState.SLIGHTLY_UNBALANCED_LEFT ) {
+    if ( rightBalanceState === BalanceState.SLIGHTLY_UNBALANCED_LEFT ) {
       return root.doubleRotateRight();
     }
   }
@@ -257,16 +260,17 @@ function main () {
   }
 
   assert( avl.tree.size > 0 );
+  console.log( `Tree size: ${avl.tree.size}` );
   assert( avl.heightDifference( avl.tree.root ) < 2 );
   assert( avl.insert( new TreeNode( null, null, null, 47584759392346, util.randomNumber( 1000, 0 ) ) ).key !== null );
-
   let node = avl.tree.get( 47584759392346 );
   assert( node );
   assert( avl.tree.minimum().key );
   assert( avl.tree.maximum().key );
   assert( avl.tree.size );
+  console.log( `Tree size: ${avl.tree.size}` );
   assert( avl.delete( node.key ) );
-  assert.ifError( avl.tree.get( node.key ));
+  assert.strictEqual( avl.tree.get( node.key ), null );
   assert( avl.heightDifference( avl.tree.root ) < 2 );
   assert( avl.tree.size > 0 );
 }
