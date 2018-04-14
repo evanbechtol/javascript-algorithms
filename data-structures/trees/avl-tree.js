@@ -1,7 +1,5 @@
 const TreeNode = require( './tree-node.js' ),
-      BST      = require( './binary-search-tree' ),
-      util     = require( '../../util/index' ),
-      assert   = require( 'assert' );
+      BST      = require( './binary-search-tree' );
 
 /**
  * @description AVL Trees are a type of BST, which abides by the following properties:
@@ -75,7 +73,7 @@ AVL.prototype._insert = function ( node, root = this.tree.root ) {
 
 /**
  * @public
- * @description Attempts to delete the node with key fromthe AVL Tree, performs rotations when necessary
+ * @description Attempts to delete the node with key from the AVL Tree, performs rotations when necessary
  * @param key {*} Key of the node to delete. Data type must match that of the key for the node
  * @returns {TreeNode} Returns key of the node that was deleted from the tree
  */
@@ -247,33 +245,4 @@ function getBalanceState ( node ) {
           ? BalanceState.UNBALANCED_LEFT : 0;
 }
 
-function main () {
-  let avl           = new AVL(),
-      nodesToInsert = 1000;
-
-  assert( avl.tree.size === 0 );
-
-  for ( let i = 0; i < nodesToInsert; i++ ) {
-    let newNode = new TreeNode( null, null, null, util.randomNumber( Number.MAX_SAFE_INTEGER, 1 ), util.randomNumber( 1000, 0 ) );
-    //console.log( `Inserted node with key : ${avl.insert( newNode ).key }` );
-    assert( avl.insert( newNode ) );
-  }
-
-  assert( avl.tree.size > 0 );
-  console.log( `Tree size: ${avl.tree.size}` );
-  assert( avl.heightDifference( avl.tree.root ) < 2 );
-  assert( avl.insert( new TreeNode( null, null, null, 47584759392346, util.randomNumber( 1000, 0 ) ) ).key !== null );
-  let node = avl.tree.get( 47584759392346 );
-  assert( node );
-  assert( avl.tree.minimum().key );
-  assert( avl.tree.maximum().key );
-  assert( avl.tree.size );
-  console.log( `Tree size: ${avl.tree.size}` );
-  assert( avl.delete( node.key ) );
-  assert.strictEqual( avl.tree.get( node.key ), null );
-  assert( avl.heightDifference( avl.tree.root ) < 2 );
-  assert( avl.tree.size > 0 );
-}
-
-
-main();
+module.exports = AVL;
