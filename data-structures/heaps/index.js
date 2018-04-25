@@ -1,71 +1,86 @@
-const assert = require( 'assert' );
-
 function Heap ( arr = [] ) {
-  this.data     = arr;
-  this.heapSize = this.data.length;
+  this.data = arr;
+  this.size = this.data.length;
 }
 
+Heap.prototype.compare = function ( a, b ) {
+  if ( a > b ) {
+    return 1;
+  }
+  if ( a < b ) {
+    return -1;
+  }
+  return 0;
+};
 
 Heap.prototype.buildMaxHeap = function () {
-  this.heapSize = this.data.length;
-  for ( let i = Math.floor( this.data.length / 2 ); i >= 0; i-- ) {
-    this.maxHeapify( this.data, i );
+  this.size = this.data.length;
+
+  let mid = Math.floor( this.size / 2 );
+
+  for ( let i = mid; i >= 0; i-- ) {
+    this.maxHeapify( i );
   }
 };
 
-Heap.prototype.maxHeapify = function ( arr, idx ) {
-  let left  = this.left( idx ),
-      right = this.right( idx ),
-      largest;
-  if ( left <= this.heapSize && arr[ left ] > arr[ idx ] ) {
-    largest = left;
-  } else {
-    largest = idx;
+Heap.prototype.maxHeapify = function ( parent ) {
+  if ( parent > this.size ) {
+    return;
   }
 
-  if ( right <= this.heapSize && arr[ right ] > arr[ largest ] ) {
+  let left    = this.left( parent ),
+      right   = this.right( parent ),
+      largest = parent;
+
+
+  if ( left && this.compare( this.data[ left ], this.data[ parent ] ) > 0 ) {
+    largest = left;
+  }
+
+  if ( right && this.compare( this.data[ right ], this.data[ largest ] ) > 0 ) {
     largest = right;
   }
 
-  if ( largest !== idx ) {
-    let temp = arr[ idx ];
-    arr[ idx ]     = arr[ largest ];
-    arr[ largest ] = temp;
-    this.maxHeapify( arr, largest );
+  if ( largest !== parent ) {
+    this.swap( parent, largest );
+    this.maxHeapify( largest );
   }
 };
 
+
+Heap.prototype.swap = function ( a, b ) {
+  let temp       = this.data[ a ];
+  this.data[ a ] = this.data[ b ];
+  this.data[ b ] = temp;
+};
 
 Heap.prototype.parent = function ( idx ) {
-  return idx ? Math.floor( idx / 2 ) : null;
+  if ( idx % 2 ) {
+    return ( idx - 1 ) / 2;
+  }
+  return ( idx / 2 ) - 1;
 };
 
 
-Heap.prototype.left = function ( idx ) {
-  if ( idx === 0 || idx % 3 === 0 ) {
-    return ( 2 * idx ) + 1;
-  }
-  return idx ? 2 * idx : null;
+Heap.prototype.left = function ( parent ) {
+  let childIdx = 2 * parent + 1;
+  return childIdx <= this.size ? childIdx : null;
 };
 
 
-Heap.prototype.right = function ( idx ) {
-  if ( idx === 0 || idx % 3 === 0 ) {
-    return ( 2 * idx ) + 2;
-  }
-  return idx ? ( 2 * idx ) + 1 : null;
+Heap.prototype.right = function ( parent ) {
+  let childIdx = 2 * parent + 2;
+  return childIdx <= this.size ? childIdx : null;
 };
 
 
 function main () {
-  let arr      = [ 16, 4, 10, 14, 7, 9, 3, 2, 8, 1 ],
-      expected = [ 16, 14, 10, 8, 7, 9, 3, 2, 4, 1 ],
-      heap     = new Heap( arr );
+  let arr  = [ 16, 4, 10, 14, 7, 9, 3, 2, 8, 1, 11, 20, 12, 5 ],
+      heap = new Heap( arr );
 
   console.log( heap.data );
   console.log( heap.buildMaxHeap() );
   console.log( heap.data );
-  console.log( expected );
 }
 
 main();
