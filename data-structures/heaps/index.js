@@ -32,7 +32,6 @@ Heap.prototype.maxHeapify = function ( parent ) {
       right   = this.right( parent ),
       largest = parent;
 
-
   if ( left && this.compare( this.data[ left ], this.data[ parent ] ) > 0 ) {
     largest = left;
   }
