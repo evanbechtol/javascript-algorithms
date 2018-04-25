@@ -9,7 +9,6 @@ function Heap ( arr = [] ) {
 Heap.prototype.buildMaxHeap = function () {
   this.heapSize = this.data.length;
   for ( let i = Math.floor( this.data.length / 2 ); i >= 0; i-- ) {
-    console.log( `maxHeapify with idx ${i}` );
     this.maxHeapify( this.data, i );
   }
 };
@@ -18,8 +17,6 @@ Heap.prototype.maxHeapify = function ( arr, idx ) {
   let left  = this.left( idx ),
       right = this.right( idx ),
       largest;
-  console.log( `arr[${idx}] = ${arr[ idx ]} has arr[${left}] = ${arr[ left ]} and arr[${right}] = ${arr[ right ]}` );
-  //console.log( `maxHeapify with idx ${idx}` );
   if ( left <= this.heapSize && arr[ left ] > arr[ idx ] ) {
     largest = left;
   } else {
@@ -29,14 +26,11 @@ Heap.prototype.maxHeapify = function ( arr, idx ) {
   if ( right <= this.heapSize && arr[ right ] > arr[ largest ] ) {
     largest = right;
   }
-  console.log( `Largest is index ${largest} with value ${arr[ largest ]}` );
+
   if ( largest !== idx ) {
     let temp = arr[ idx ];
-    console.log( `Old array: ${arr}` );
-    console.log( `swapping ${arr[ idx ]} with ${arr[ largest ]}` );
     arr[ idx ]     = arr[ largest ];
     arr[ largest ] = temp;
-    console.log( `New array: ${arr}` );
     this.maxHeapify( arr, largest );
   }
 };
@@ -69,7 +63,7 @@ function main () {
       heap     = new Heap( arr );
 
   console.log( heap.data );
-  console.log( heap.maxHeapify( heap.data, 1 ) );
+  console.log( heap.buildMaxHeap() );
   console.log( heap.data );
   console.log( expected );
 }
