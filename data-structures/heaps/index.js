@@ -78,7 +78,7 @@ function main () {
       heap = new Heap( arr );
 
   console.log( heap.data );
-  console.log( heap.buildMaxHeap() );
+  heap.buildMaxHeap();
   console.log( heap.data );
 }
 
