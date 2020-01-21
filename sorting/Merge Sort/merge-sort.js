@@ -33,7 +33,7 @@ function merge ( left, right, sortOrder = "asc" ) {
   return result.concat( left.slice( leftIdx ) ).concat( right.slice( rightIdx ) );
 }
 
-function mergeSort ( arr ) {
+function mergeSort ( arr, sortOrder = "asc" ) {
   if ( arr.length === 1 ) {
     return arr;
   }
@@ -42,7 +42,7 @@ function mergeSort ( arr ) {
   const left = arr.slice( 0, middle );
   const right = arr.slice( middle );
 
-  return merge( mergeSort( left ), mergeSort( right ) );
+  return merge( mergeSort( left ), mergeSort( right ), sortOrder );
 }
 
 function main () {
