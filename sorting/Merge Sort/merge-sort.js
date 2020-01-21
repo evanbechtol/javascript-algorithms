@@ -21,16 +21,16 @@ function merge ( left, right, sortOrder = "asc" ) {
   let rightIdx = 0;
 
   while ( leftIdx < left.length && rightIdx < right.length ) {
-    if ( left[leftIdx] < right[rightIdx]) {
-      result.push(left[leftIdx]);
+    if ( util.sortComparison( sortOrder, right[ rightIdx ], left[ leftIdx ] ) ) {
+      result.push( left[ leftIdx ] );
       leftIdx++;
     } else {
-      result.push(right[rightIdx]);
+      result.push( right[ rightIdx ] );
       rightIdx++;
     }
   }
 
-  return result.concat(left.slice(leftIdx)).concat(right.slice(rightIdx))
+  return result.concat( left.slice( leftIdx ) ).concat( right.slice( rightIdx ) );
 }
 
 function mergeSort ( arr ) {
@@ -55,6 +55,6 @@ function main () {
   console.log( `Sorted array descending  : ${mergeSort( arr, "desc" )}` );
 }
 
-main();
+//main();
 
-module.exports = {};
+module.exports = { mergeSort };
