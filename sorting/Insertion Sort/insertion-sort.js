@@ -23,7 +23,7 @@ function insertionSort ( arr, sortOrder = 'asc' ) {
        * If arr[ previous ] > elem, then we know we need to perform a swap.
        */
 
-      while ( previous >= 0 && sortComparison( sortOrder, arr[ previous ], current ) ) {
+      while ( previous >= 0 && util.sortComparison( sortOrder, arr[ previous ], current ) ) {
         arr[ previous + 1 ] = arr[ previous-- ];
       }
 
@@ -34,17 +34,6 @@ function insertionSort ( arr, sortOrder = 'asc' ) {
   }
 
   return [];
-}
-
-/**
- * @description Performs the appropriate comparison to sort the array in either ascending or descending order
- * @param sortOrder {string} If set to 'asc' will sort in ascending order, all else sorts descending
- * @param previous {*} Previous element to perform comparison with
- * @param current {*} Current element to perform comparison with
- * @returns {boolean} Returns results of the comparison to determine sorting
- */
-function sortComparison ( sortOrder, previous, current ) {
-  return sortOrder === 'asc' ? previous > current : previous < current;
 }
 
 function main () {
