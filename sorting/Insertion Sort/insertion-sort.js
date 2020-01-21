@@ -1,4 +1,4 @@
-const util = require( '../util' );
+const util = require( '../../util' );
 
 /**
  * @description Performs an insertion sort on the provided array. Insertion sort is an stable, in-place sorting algorithm. It
@@ -57,4 +57,6 @@ function main () {
   console.log( `Sorted array descending  : ${insertionSort( arr, 'desc' )}` );
 }
 
-main();
+// main();
+
+module.exports = { insertionSort };
