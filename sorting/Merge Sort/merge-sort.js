@@ -1,20 +1,5 @@
 const util = require( "../../util" );
 
-/**
- * @description Performs an merge sort on the provided array. Merge sort is
- *   a divide-and-conquer sorting algorithm . It is good for data which
- *   cannot be stored in RAM. It is also stable.
- *   Merge sort has the following performance:
- *   Worst-case: O(nlogn)
- *   Average-case: O(nlogn)
- *   Best-case: O(nlogn)
- *   Worst-case space complexity: O(n) total
- * @param left {object} Array to be sorted
- * @param right {object} Array to be sorted
- * @param sortOrder {string} Order to sort, can be set to either 'asc' or
- *   'desc'. Defaults to 'asc'
- * @returns {object} Returns sorted array
- */
 function merge ( left, right, sortOrder = "asc" ) {
   let result = [];
   let leftIdx = 0;
@@ -33,6 +18,21 @@ function merge ( left, right, sortOrder = "asc" ) {
   return result.concat( left.slice( leftIdx ) ).concat( right.slice( rightIdx ) );
 }
 
+/**
+ * @description Performs an merge sort on the provided array. Merge sort is
+ *   a divide-and-conquer sorting algorithm . It is good for data which
+ *   cannot be stored in RAM. It is also stable.
+ *   Merge sort has the following performance:
+ *   Worst-case: O(nlogn)
+ *   Average-case: O(nlogn)
+ *   Best-case: O(nlogn)
+ *   Worst-case space complexity: O(n) total
+ * @param arr {object} Array to be sorted
+ * @param sortOrder {string} Direction that the array should be sorted in
+ * @param sortOrder {string} Order to sort, can be set to either 'asc' or
+ *   'desc'. Defaults to 'asc'
+ * @returns {object} Returns sorted array
+ */
 function mergeSort ( arr, sortOrder = "asc" ) {
   if ( arr.length === 1 ) {
     return arr;
