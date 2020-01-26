@@ -9,12 +9,16 @@ describe( "Heap Sort", () => {
   };
 
   describe( "Exposed methods", () => {
-    it( "parent", () => {
-      assert.isFunction( heapSort.parent, `Method 'parent' does not exist` );
-    } );
-
     it( "left", () => {
       assert.isFunction( heapSort.left, `Method 'left' does not exist` );
+    } );
+
+    it( "maxHeapify", () => {
+      assert.isFunction( heapSort.maxHeapify, `Method 'maxHeapify' does not exist` );
+    } );
+
+    it( "parent", () => {
+      assert.isFunction( heapSort.parent, `Method 'parent' does not exist` );
     } );
 
     it( "right", () => {
@@ -86,6 +90,12 @@ describe( "Heap Sort", () => {
 
     it( "Right child of 4", () => {
       assert.deepEqual( heapSort.right( 4 ), 10, `Incorrect right child returned` );
+    } );
+  } );
+
+  describe( "heapSort", () => {
+    it( "Should return max heap", () => {
+      assert.deepEqual( heapSort.heapSort( [ 16, 4, 10, 14, 7, 9, 3, 2, 8, 1 ] ), [ 1, 2, 3, 4, 7, 8, 9, 10, 14, 16 ], `Max Heap not returned` );
     } );
   } );
 } );
