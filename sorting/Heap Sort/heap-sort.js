@@ -3,11 +3,11 @@ function parent ( i ) {
 }
 
 function left ( i ) {
-  return 2 * i;
+  return 2 * i + 1;
 }
 
 function right ( i ) {
-  return 2 * i + 1;
+  return 2 * i + 2;
 }
 
 module.exports = {
