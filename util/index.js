@@ -7,13 +7,14 @@ module.exports = {
    * @description Generates a random array and fills with data up to length
    * provided
    * @param length {number} Length of array
+   * @param max {number} Maximum value to be possible in array
    * @returns {[]} Returns randomly generated array
    */
-  generateArray: (length) => {
+  generateArray: (length, max = 10) => {
     let arr = [];
     for (let i = length; i > 0; i--) {
       // Fill with random data
-      arr.push(parseInt(Math.random() * 1000000000));
+      arr.push(parseInt(Math.random() * max));
     }
     return arr;
   },
