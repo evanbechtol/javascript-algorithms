@@ -1,4 +1,23 @@
 module.exports = {
+  compare: ( a, b ) => {
+    return a - b;
+  },
+
+  /**
+   * @description Generates a random array and fills with data up to length
+   * provided
+   * @param length {number} Length of array
+   * @returns {[]} Returns randomly generated array
+   */
+  generateArray: (length) => {
+    let arr = [];
+    for (let i = length; i > 0; i--) {
+      // Fill with random data
+      arr.push(parseInt(Math.random() * 1000000000));
+    }
+    return arr;
+  },
+
   /**
    * @description Generate a random number between max, and min
    * @param max {int} Integer to represent maximum value generated number can
@@ -23,9 +42,5 @@ module.exports = {
    */
   sortComparison: ( sortOrder, previous, current ) => {
     return sortOrder === "asc" ? previous > current : previous < current;
-  },
-
-  compare: ( a, b ) => {
-    return a - b;
   }
 };
