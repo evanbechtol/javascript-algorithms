@@ -45,8 +45,8 @@ function buildMaxHeap ( arr ) {
  * @return {*}
  */
 function maxHeapify ( arr, i, heapSize ) {
-  let leftChild = left( i );
-  let rightChild = right( i );
+  const leftChild = left( i );
+  const rightChild = right( i );
   let largest = i;
 
   // Determine if left is larger then value at largest
@@ -78,7 +78,7 @@ function heapSort ( arr ) {
 
   buildMaxHeap( arr );
 
-  for ( let i = arr.length - 1; i > 0; i -= 1 ) {
+  for ( let i = arr.length - 1; i > 0; i-- ) {
     [ arr[ 0 ], arr[ i ] ] = [ arr[ i ], arr[ 0 ] ];
     heapSize--;
     maxHeapify( arr, 0, heapSize );
