@@ -1,6 +1,4 @@
-function compare ( a, b ) {
-  return a - b;
-}
+const { compare } = require( "../../util" );
 
 /**
  * @description Retrieves the parent for the provided index
