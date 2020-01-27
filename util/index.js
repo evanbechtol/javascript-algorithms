@@ -23,5 +23,9 @@ module.exports = {
    */
   sortComparison: ( sortOrder, previous, current ) => {
     return sortOrder === "asc" ? previous > current : previous < current;
+  },
+
+  compare: ( a, b ) => {
+    return a - b;
   }
 };
