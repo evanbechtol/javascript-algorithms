@@ -29,6 +29,12 @@ function right ( i ) {
   return left( i ) + 1;
 }
 
+/**
+ * @description Goes through remaining nodes of  tree and runs maxHeapify on
+ * each one
+ * @param arr {array} Array to maxHeapify
+ * @return {array} Returns maxHeapify operation on array
+ */
 function buildMaxHeap ( arr ) {
   for ( let i = Math.floor( arr.length / 2 ); i >= 0; i-- ) {
     maxHeapify( arr, i, arr.length );
