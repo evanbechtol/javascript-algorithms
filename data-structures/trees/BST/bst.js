@@ -15,7 +15,7 @@ function BST ( tree = new Tree() ) {
 /**
  * @description Inserts a TreeNode object into the tree, in the proper position
  *   following BST properties
- * @param node {TreeNode} Instance of TreeNode object
+ * @param node {Object} Instance of TreeNode object
  * @returns {*} Returns the inserted node
  */
 BST.prototype.insert = function ( node ) {
@@ -46,16 +46,14 @@ BST.prototype.insert = function ( node ) {
 
 /**
  * @description Attempts to delete the node from the tree provided.
- * @param node {TreeNode} Instance of TreeNode object
+ * @param node {Object} Instance of TreeNode object
  * @returns {*} Returns deleted node if node was found and deleted, otherwise
  *   returns null
  */
 BST.prototype.delete = function ( node ) {
   if ( node ) {
     if ( node.left === null ) {
-      if ( node.left === null ) {
-        this.transplant( node, node.right );
-      }
+      this.transplant( node, node.right );
     } else if ( node.right === null ) {
       this.transplant( node, node.right );
     } else {
@@ -80,8 +78,8 @@ BST.prototype.delete = function ( node ) {
 /**
  * @description Transplants a subtree to a new parent. This is used when
  *   deleting nodes, and rearranging the BST
- * @param subtreeA {TreeNode} Instance of TreeNode object
- * @param subtreeB {TreeNode} Instance of TreeNode object
+ * @param subtreeA {Object} Instance of TreeNode object
+ * @param subtreeB {Object} Instance of TreeNode object
  */
 BST.prototype.transplant = function ( subtreeA, subtreeB ) {
   if ( subtreeA.parent === null ) {
@@ -95,7 +93,7 @@ BST.prototype.transplant = function ( subtreeA, subtreeB ) {
 
 /**
  * @description Determines the minimum depth of a binary tree node.
- * @param {TreeNode} node The node to check.
+ * @param {Object} node The node to check.
  * @return {int} The minimum depth of a binary tree node.
  */
 BST.prototype.minDepth = function ( node ) {
@@ -104,7 +102,7 @@ BST.prototype.minDepth = function ( node ) {
 
 /**
  * @description Determines the maximum depth of a binary tree node.
- * @param {TreeNode} node The node to check.
+ * @param {Object} node The node to check.
  * @return {int} The maximum depth of a binary tree node.
  */
 BST.prototype.maxDepth = function ( node ) {
