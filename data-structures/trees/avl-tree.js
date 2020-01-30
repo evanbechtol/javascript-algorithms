@@ -1,5 +1,5 @@
 const TreeNode = require( './tree-node.js' ),
-      BST      = require( './binary-search-tree' );
+      BST      = require( './BST/bst' );
 
 /**
  * @description AVL Trees are a type of BST, which abides by the following properties:

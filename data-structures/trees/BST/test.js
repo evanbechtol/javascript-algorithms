@@ -15,5 +15,15 @@ describe( "BST", () => {
     it( "insert", () => {
       assert.isFunction( BstInstance.insert, "Method insert does not exist" );
     } );
+
+    it( "inorderTreeWalk", () => {
+      assert.isFunction( BstInstance.inorderTreeWalk, "Method inorderTreeWalk does not exist" );
+    } );
+  } );
+
+  describe( "Inorder Tree Walk", () => {
+    it( "Should return in tree in order", () => {
+
+    } );
   } );
 } );
