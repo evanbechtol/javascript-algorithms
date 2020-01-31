@@ -118,4 +118,10 @@ describe( "BST", () => {
       assert.deepEqual( BstInstance.tree.root.right.key, key, "Insert did not place node as right child" );
     } );
   } );
+
+  describe( "isBalanced Method", () => {
+    it( "Should be balanced", () => {
+      assert.equal( BstInstance.isBalanced(), true, "isBalanced returned false" );
+    } );
+  } );
 } );
