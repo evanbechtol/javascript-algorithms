@@ -26,7 +26,7 @@ function AVL ( bst = new BST() ) {
 
 /**
  * @description Calculate the height difference between the left and right subtrees
- * @param node {TreeNode} Node to calculate the height difference for subtrees
+ * @param node {object} Node to calculate the height difference for subtrees
  * @returns {number} Returns the height difference between the left and right subtrees
  */
 AVL.prototype.heightDifference = function ( node ) {
@@ -36,8 +36,8 @@ AVL.prototype.heightDifference = function ( node ) {
 /**
  * @public
  * @description Attempts to insert the node into the AVL Tree, performs rotations when necessary
- * @param node {TreeNode} Instance of the TreeNode object to insert into the AVL tree
- * @returns {TreeNode} Returns new root node for AVL Tree
+ * @param node {object} Instance of the object object to insert into the AVL tree
+ * @returns {object} Returns new root node for AVL Tree
  */
 AVL.prototype.insert = function ( node ) {
   this.tree.root = this._insert( node, this.tree.root );
@@ -48,9 +48,9 @@ AVL.prototype.insert = function ( node ) {
 /**
  * @private
  * @description Attempts to insert the node into the AVL Tree, performs necessary rotations when necessary
- * @param root {TreeNode} Root node of subtree, defaults to root of AVL tree
- * @param node {TreeNode} Instance of the TreeNode object to insert into the AVL tree
- * @returns {TreeNode} Returns new root node for AVL Tree
+ * @param root {object} Root node of subtree, defaults to root of AVL tree
+ * @param node {object} Instance of the object object to insert into the AVL tree
+ * @returns {object} Returns new root node for AVL Tree
  */
 AVL.prototype._insert = function ( node, root = this.tree.root ) {
   if ( !root ) {
@@ -75,7 +75,7 @@ AVL.prototype._insert = function ( node, root = this.tree.root ) {
  * @public
  * @description Attempts to delete the node with key from the AVL Tree, performs rotations when necessary
  * @param key {*} Key of the node to delete. Data type must match that of the key for the node
- * @returns {TreeNode} Returns key of the node that was deleted from the tree
+ * @returns {Object} Returns key of the node that was deleted from the tree
  */
 AVL.prototype.delete = function ( key ) {
   this.tree.root = this._delete( key, this.tree.root );
@@ -87,8 +87,8 @@ AVL.prototype.delete = function ( key ) {
  * @description Attempts to delete the node from the subtree. Afterwards, the
  *   subtree is rebalanced in the outward flow of recursion.
  * @param key {*} Key for the node that is to be deleted
- * @param root {TreeNode} Root of the subtree to search through
- * @returns {TreeNode} Returns the new subtree root, after any deletions/rotations
+ * @param root {object} Root of the subtree to search through
+ * @returns {object} Returns the new subtree root, after any deletions/rotations
  * @private
  */
 AVL.prototype._delete = function ( key, root ) {
@@ -139,9 +139,9 @@ AVL.prototype._delete = function ( key, root ) {
 
 /**
  * @description Performs the necessary rotations in order to balance the subtree
- * @param node {TreeNode} Node that is either inserted or deleted from subtree
- * @param root {TreeNode} Root node of the subtree
- * @returns {TreeNode} Returns the new root of the subtree after rotations
+ * @param node {object} Node that is either inserted or deleted from subtree
+ * @param root {object} Root node of the subtree
+ * @returns {object} Returns the new root of the subtree after rotations
  */
 AVL.prototype.balance = function ( node, root ) {
   root.height      = root.getMaxHeight( root.leftHeight(), root.rightHeight() );
@@ -171,8 +171,8 @@ AVL.prototype.balance = function ( node, root ) {
 
 /**
  * @description
- * @param root {TreeNode} Root of subtree
- * @returns {TreeNode} Returns the new root node after rotations
+ * @param root {object} Root of subtree
+ * @returns {object} Returns the new root node after rotations
  */
 AVL.prototype.deleteBalance = function ( root ) {
   root.height = Math.max( root.leftHeight(), root.rightHeight() ) + 1;
@@ -207,9 +207,9 @@ AVL.prototype.deleteBalance = function ( root ) {
 };
 
 /**
- * @description Compares keys of TreeNodes
- * @param a {int} Key from first TreeNode to compare
- * @param b {int} Key from second TreeNode to compare
+ * @description Compares keys of objects
+ * @param a {int} Key from first object to compare
+ * @param b {int} Key from second object to compare
  * @returns {number} Returns 1 if a > b, -1 if a < b, and 0 if a === b
  */
 AVL.prototype.compare = function ( a, b ) {
@@ -234,7 +234,7 @@ let BalanceState = {
  * @private
  * @description Gets the balance state of a node, indicating whether the left or right
  *   sub-trees are unbalanced. Taken from (https://github.com/gwtw/js-avl-tree)
- * @param {TreeNode} node The node to get the difference from.
+ * @param {object} node The node to get the difference from.
  * @return {int} The BalanceState of the node.
  */
 function getBalanceState ( node ) {

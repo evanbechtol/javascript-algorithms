@@ -112,18 +112,32 @@ describe( "BST", () => {
     it( "Should insert node as right child of root", () => {
       const key = 6;
       const data = 7;
-
       const node = new TreeNode( null, null, null, key, data );
+
       BstInstance.insert( node );
       assert.equal( BstInstance.tree.root.right.key, key, "Insert did not place node as right child" );
     } );
-  } );
 
-  describe( "isBalanced Method", () => {
     it( "Should be balanced", () => {
       assert.equal( BstInstance.isBalanced(), true, "isBalanced returned false" );
     } );
+
+    it( "Should insert left child of 2", () => {
+      const key = 6;
+      const data = 7;
+      const newNode = new TreeNode( null, null, null, key, data );
+
+      BstInstance.insert( newNode );
+      const node = BstInstance.tree.root.left;
+      assert.equal( node.left, key, "Insert did not place node as left child" );
+    })
   } );
+
+  /*describe( "isBalanced Method", () => {
+    it( "Should be balanced", () => {
+      assert.equal( BstInstance.isBalanced(), true, "isBalanced returned false" );
+    } );
+  } );*/
 
   describe( "In-order Walk", () => {
     it( "Should return tree in-order", () => {
