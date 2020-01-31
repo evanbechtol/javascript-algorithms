@@ -61,6 +61,10 @@ describe( "BST", () => {
     it( "postOrderWalk", () => {
       assert.isFunction( BstInstance.tree.postOrderWalk, "Method postOrderWalk does not exist" );
     } );
+
+    it( "search", () => {
+      assert.isFunction( BstInstance.search, "Method search does not exist" );
+    } );
   } );
 
   describe( "Insert Nodes", () => {
@@ -122,7 +126,7 @@ describe( "BST", () => {
       assert.equal( BstInstance.isBalanced(), true, "isBalanced returned false" );
     } );
 
-    it( "Should insert left child of 2", () => {
+    /*it( "Should insert left child of 2", () => {
       const key = 6;
       const data = 7;
       const newNode = new TreeNode( null, null, null, key, data );
@@ -130,14 +134,14 @@ describe( "BST", () => {
       BstInstance.insert( newNode );
       const node = BstInstance.tree.root.left;
       assert.equal( node.left, key, "Insert did not place node as left child" );
-    })
+    } );*/
   } );
 
   /*describe( "isBalanced Method", () => {
-    it( "Should be balanced", () => {
-      assert.equal( BstInstance.isBalanced(), true, "isBalanced returned false" );
-    } );
-  } );*/
+   it( "Should be balanced", () => {
+   assert.equal( BstInstance.isBalanced(), true, "isBalanced returned false" );
+   } );
+   } );*/
 
   describe( "In-order Walk", () => {
     it( "Should return tree in-order", () => {
