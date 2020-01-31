@@ -137,11 +137,11 @@ describe( "BST", () => {
     } );
   } );
 
-  /*describe( "isBalanced Method", () => {
-   it( "Should be balanced", () => {
-   assert.equal( BstInstance.isBalanced(), true, "isBalanced returned false" );
-   } );
-   } );*/
+  describe( "isBalanced Method", () => {
+    it( "Should be balanced", () => {
+      assert.equal( BstInstance.isBalanced(), true, "isBalanced returned false" );
+    } );
+  } );
 
   describe( "In-order Walk", () => {
     it( "Should return tree in-order", () => {
