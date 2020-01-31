@@ -1,61 +1,64 @@
 /**
  * @description Constructor to create an instance of a Tree object
- * @param root {object} Optional parameter. Can provide a root node to initialize tree with
+ * @param root {object} Optional parameter. Can provide a root node to
+ *   initialize tree with
  * @constructor
  */
 function Tree ( root = null ) {
-  this.root      = root;
+  this.root = root;
   this.size = 0;
 }
 
 /**
- * @description Adds keys from leftmost to right most (in ascending order of keys) to an array,
- *   then returns the array
+ * @description Adds keys from leftmost to right most (in ascending order of
+ *   keys) to an array, then returns the array
  * @returns {Array} Returns the tree keys sorted in order of key value
  */
 Tree.prototype.inOrderWalk = function () {
-  let result   = [],
-      traverse = function ( node ) {
-        if ( node !== null ) {
-          traverse( node.left );
-          result.push( node.key );
-          traverse( node.right );
-        }
-      };
+  let result = [],
+    traverse = function ( node ) {
+      if ( node !== null ) {
+        traverse( node.left );
+        result.push( node.key );
+        traverse( node.right );
+      }
+    };
   traverse( this.root );
   return result;
 };
 
 /**
- * @description Adds keys with the subtree roots first, then the keys in those subtrees
+ * @description Adds keys with the subtree roots first, then the keys in those
+ *   subtrees
  * @returns {Array} Returns the tree keys sorted in pre-order
  */
 Tree.prototype.preOrderWalk = function () {
-  let result   = [],
-      traverse = function ( node ) {
-        if ( node !== null ) {
-          result.push( node.key );
-          traverse( node.left );
-          traverse( node.right );
-        }
-      };
+  let result = [],
+    traverse = function ( node ) {
+      if ( node !== null ) {
+        result.push( node.key );
+        traverse( node.left );
+        traverse( node.right );
+      }
+    };
   traverse( this.root );
   return result;
 };
 
 /**
- * @description Adds keys of the subtrees first, then the root keys for those subtrees
+ * @description Adds keys of the subtrees first, then the root keys for those
+ *   subtrees
  * @returns {Array} Returns the tree keys sorted in post-order
  */
 Tree.prototype.postOrderWalk = function () {
-  let result   = [],
-      traverse = function ( node ) {
-        if ( node !== null ) {
-          traverse( node.left );
-          traverse( node.right );
-          result.push( node.key );
-        }
-      };
+  let result = [],
+    traverse = function ( node ) {
+      if ( node !== null ) {
+        traverse( node.left );
+        traverse( node.right );
+        result.push( node.key );
+      }
+    };
   traverse( this.root );
   return result;
 };
@@ -83,7 +86,8 @@ Tree.prototype.maximum = function ( node = this.root ) {
 };
 
 /**
- * @description If all keys are distinct, the successor of the node is that which has the smallest key greater than
+ * @description If all keys are distinct, the successor of the node is that
+ *   which has the smallest key greater than
  *   'node'.
  * @param node {object} Instance of a TreeNode node
  * @returns {*} Returns the successor node for the provided node
@@ -95,14 +99,15 @@ Tree.prototype.successor = function ( node ) {
   let successor = node.parent;
 
   while ( successor !== null && node === successor.right ) {
-    node      = successor;
+    node = successor;
     successor = successor.parent;
   }
   return successor;
 };
 
 /**
- * @description If all keys are distinct, the predecessor of the node is that which has the smallest key less than
+ * @description If all keys are distinct, the predecessor of the node is that
+ *   which has the smallest key less than
  *   'node'.
  * @param node {object} Instance of a TreeNode node
  * @returns {*} Returns the predecessor node for the provided node
@@ -114,16 +119,18 @@ Tree.prototype.predecessor = function ( node ) {
   let predecessor = node.parent;
 
   while ( predecessor !== null && node === predecessor.left ) {
-    node        = predecessor;
+    node = predecessor;
     predecessor = predecessor.parent;
   }
   return predecessor;
 };
 
 /**
- * @description Performs a recursive search for the value provided, across all nodes in the tree, starting from 'node'
+ * @description Performs a recursive search for the value provided, across all
+ *   nodes in the tree, starting from 'node'
  * @param value {*} Key to search for, must match data type of the key
- * @returns {*} Returns the node found matching the key, or null if no node was found
+ * @returns {*} Returns the node found matching the key, or null if no node was
+ *   found
  */
 Tree.prototype.get = function ( value ) {
   let node = this.root;
