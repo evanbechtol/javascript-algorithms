@@ -126,15 +126,15 @@ describe( "BST", () => {
       assert.equal( BstInstance.isBalanced(), true, "isBalanced returned false" );
     } );
 
-    /*it( "Should insert left child of 2", () => {
-      const key = 6;
-      const data = 7;
+    it( "Should insert left child of 2", () => {
+      const key = 1;
+      const data = 5;
       const newNode = new TreeNode( null, null, null, key, data );
 
       BstInstance.insert( newNode );
       const node = BstInstance.tree.root.left;
-      assert.equal( node.left, key, "Insert did not place node as left child" );
-    } );*/
+      assert.equal( node.left.key, key, "Insert did not place node as left child" );
+    } );
   } );
 
   /*describe( "isBalanced Method", () => {
@@ -145,19 +145,19 @@ describe( "BST", () => {
 
   describe( "In-order Walk", () => {
     it( "Should return tree in-order", () => {
-      assert.deepEqual( BstInstance.tree.inOrderWalk(), [ 2, 4, 6 ], "inOrderWalk incorrect" );
+      assert.deepEqual( BstInstance.tree.inOrderWalk(), [ 1, 2, 4, 6 ], "inOrderWalk incorrect" );
     } );
   } );
 
   describe( "Pre-order Walk", () => {
     it( "Should return tree pre-order", () => {
-      assert.deepEqual( BstInstance.tree.preOrderWalk(), [ 4, 2, 6 ], "preOrderWalk incorrect" );
+      assert.deepEqual( BstInstance.tree.preOrderWalk(), [ 4, 2, 1, 6 ], "preOrderWalk incorrect" );
     } );
   } );
 
   describe( "Post-order Walk", () => {
     it( "Should return tree post-order", () => {
-      assert.deepEqual( BstInstance.tree.postOrderWalk(), [ 2, 6, 4 ], "postOrderWalk incorrect" );
+      assert.deepEqual( BstInstance.tree.postOrderWalk(), [ 1, 2, 6, 4 ], "postOrderWalk incorrect" );
     } );
   } );
 } );

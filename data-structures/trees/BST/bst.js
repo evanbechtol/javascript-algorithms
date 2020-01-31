@@ -36,8 +36,10 @@ BST.prototype.insert = function ( node ) {
       if ( parent === null ) {
         this.tree.root = node; // Tree was empty
       } else if ( node.key < parent.key ) {
-        parent.left = node; // Insert left child
+        node.parent = parent;
+        parent.left = node;// Insert left child
       } else {
+        node.parent = parent;
         parent.right = node; // Insert right child
       }
 
