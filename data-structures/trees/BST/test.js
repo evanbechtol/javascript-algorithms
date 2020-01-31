@@ -1,6 +1,8 @@
 const assert = require( "chai" ).assert;
 const mocha = require( "mocha" );
 const BST = require( "./bst" );
+const TreeNode = require( "../tree-node" );
+const util = require( "../../../util" );
 
 describe( "BST", () => {
   const BstInstance = new BST();
@@ -61,9 +63,41 @@ describe( "BST", () => {
     } );
   } );
 
-  describe( "Inorder Tree Walk", () => {
-    it( "Should return in tree in order", () => {
-      assert.deepEqual();
+  describe( "Insert Method", () => {
+    it( "Should return null for invalid node", () => {
+      assert.deepEqual( BstInstance.insert( null ), null, "Insert did not return null as expected" );
+    } );
+
+    it( "Should return node for valid node", () => {
+      const key = 1;
+      const data = 10;
+
+      const node = new TreeNode( null, null, null, key, data );
+      assert.deepEqual( BstInstance.insert( node ), node, "Insert did not return node as expected" );
+    } );
+
+    it( "Should update tree size", () => {
+      assert.equal( BstInstance.tree.size, 1, "Tree size is not 1" );
+    } );
+
+    it( "Should make inserted node root", () => {
+      assert.equal( BstInstance.tree.root.key, 1, "Root key is not 1" );
+    } );
+
+    it( "Should have all required properties", () => {
+      assert.containsAllKeys( BstInstance.tree.root, ["parent", "key", "data", "left", "right"],  "Does not contain all required keys" );
+    } );
+
+    it( "Should have null left child", () => {
+      assert.isNull( BstInstance.tree.root.left, "Left child is not null" );
+    } );
+
+    it( "Should have null right child", () => {
+      assert.isNull( BstInstance.tree.root.right, "Left right is not null" );
+    } );
+
+    it( "Should have null parent", () => {
+      assert.isNull( BstInstance.tree.root.parent, "Parent is not null" );
     } );
   } );
 } );

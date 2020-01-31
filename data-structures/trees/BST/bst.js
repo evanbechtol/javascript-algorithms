@@ -20,9 +20,9 @@ function BST ( tree = new Tree() ) {
  */
 BST.prototype.insert = function ( node ) {
   if ( node ) {
-
     if ( this.tree.root === null ) {
       this.tree.root = node;
+      this.tree.size++;
     } else {
       let parent = null;
       let current = this.tree.root;
