@@ -65,7 +65,7 @@ describe( "BST", () => {
 
   describe( "Insert Nodes", () => {
     it( "Should return null for invalid node", () => {
-      assert.deepEqual( BstInstance.insert( null ), null, "Insert did not return null as expected" );
+      assert.equal( BstInstance.insert( null ), null, "Insert did not return null as expected" );
     } );
 
     it( "Should return node for valid node", () => {
@@ -106,7 +106,7 @@ describe( "BST", () => {
 
       const node = new TreeNode( null, null, null, key, data );
       BstInstance.insert( node );
-      assert.deepEqual( BstInstance.tree.root.left.key, key, "Insert did not place node as left child" );
+      assert.equal( BstInstance.tree.root.left.key, key, "Insert did not place node as left child" );
     } );
 
     it( "Should insert node as right child of root", () => {
@@ -115,7 +115,7 @@ describe( "BST", () => {
 
       const node = new TreeNode( null, null, null, key, data );
       BstInstance.insert( node );
-      assert.deepEqual( BstInstance.tree.root.right.key, key, "Insert did not place node as right child" );
+      assert.equal( BstInstance.tree.root.right.key, key, "Insert did not place node as right child" );
     } );
   } );
 
