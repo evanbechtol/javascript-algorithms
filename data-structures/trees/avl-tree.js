@@ -1,15 +1,17 @@
-const TreeNode = require( './tree-node.js' ),
-      BST      = require( './BST/bst' );
+const TreeNode = require( "./tree-node.js" ),
+  BST = require( "./BST/bst" );
 
 /**
- * @description AVL Trees are a type of BST, which abides by the following properties:
+ * @description AVL Trees are a type of BST, which abides by the following
+ *   properties:
  *   - Abides by all the properties of a BST (Binary Search Tree)
- *   - The heights of the left and right subtrees of any node differ by no more than 1
+ *   - The heights of the left and right subtrees of any node differ by no more
+ *   than 1
  *
- *   AVL trees maintain a worst-case height of O(log N). All of the following operations
- *   also have a worst-case time complexity of O(log N): search, insert, delete.
- *   When an imbalance of the subtree heights is detected, rotations are performed on the node's
- *   subtree with the following cases:
+ *   AVL trees maintain a worst-case height of O(log N). All of the following
+ *   operations also have a worst-case time complexity of O(log N): search,
+ *   insert, delete. When an imbalance of the subtree heights is detected,
+ *   rotations are performed on the node's subtree with the following cases:
  *
  *       Case: Where insertion took place     | Type of rotation
  *       ----------------------------------------------------------------
@@ -25,9 +27,11 @@ function AVL ( bst = new BST() ) {
 }
 
 /**
- * @description Calculate the height difference between the left and right subtrees
+ * @description Calculate the height difference between the left and right
+ *   subtrees
  * @param node {object} Node to calculate the height difference for subtrees
- * @returns {number} Returns the height difference between the left and right subtrees
+ * @returns {number} Returns the height difference between the left and right
+ *   subtrees
  */
 AVL.prototype.heightDifference = function ( node ) {
   return Math.abs( node.leftHeight() - node.rightHeight() );
@@ -35,8 +39,10 @@ AVL.prototype.heightDifference = function ( node ) {
 
 /**
  * @public
- * @description Attempts to insert the node into the AVL Tree, performs rotations when necessary
- * @param node {object} Instance of the object object to insert into the AVL tree
+ * @description Attempts to insert the node into the AVL Tree, performs
+ *   rotations when necessary
+ * @param node {object} Instance of the object object to insert into the AVL
+ *   tree
  * @returns {object} Returns new root node for AVL Tree
  */
 AVL.prototype.insert = function ( node ) {
@@ -47,9 +53,11 @@ AVL.prototype.insert = function ( node ) {
 
 /**
  * @private
- * @description Attempts to insert the node into the AVL Tree, performs necessary rotations when necessary
+ * @description Attempts to insert the node into the AVL Tree, performs
+ *   necessary rotations when necessary
  * @param root {object} Root node of subtree, defaults to root of AVL tree
- * @param node {object} Instance of the object object to insert into the AVL tree
+ * @param node {object} Instance of the object object to insert into the AVL
+ *   tree
  * @returns {object} Returns new root node for AVL Tree
  */
 AVL.prototype._insert = function ( node, root = this.tree.root ) {
@@ -73,8 +81,10 @@ AVL.prototype._insert = function ( node, root = this.tree.root ) {
 
 /**
  * @public
- * @description Attempts to delete the node with key from the AVL Tree, performs rotations when necessary
- * @param key {*} Key of the node to delete. Data type must match that of the key for the node
+ * @description Attempts to delete the node with key from the AVL Tree,
+ *   performs rotations when necessary
+ * @param key {*} Key of the node to delete. Data type must match that of the
+ *   key for the node
  * @returns {Object} Returns key of the node that was deleted from the tree
  */
 AVL.prototype.delete = function ( key ) {
@@ -123,9 +133,9 @@ AVL.prototype._delete = function ( key, root ) {
        *   2) Largest key in the left subtree
        */
       let successor = this.tree.minimum( root.right );
-      root.key      = successor.key;
-      root.data     = successor.data;
-      root.right    = this._delete( successor.key, root.right );
+      root.key = successor.key;
+      root.data = successor.data;
+      root.right = this._delete( successor.key, root.right );
     }
   }
 
@@ -144,7 +154,7 @@ AVL.prototype._delete = function ( key, root ) {
  * @returns {object} Returns the new root of the subtree after rotations
  */
 AVL.prototype.balance = function ( node, root ) {
-  root.height      = root.getMaxHeight( root.leftHeight(), root.rightHeight() );
+  root.height = root.getMaxHeight( root.leftHeight(), root.rightHeight() );
   let balanceState = getBalanceState( root );
 
   if ( balanceState === BalanceState.UNBALANCED_LEFT ) {
@@ -181,7 +191,7 @@ AVL.prototype.deleteBalance = function ( root ) {
     let leftBalanceState = getBalanceState( root.left );
     // Case 1
     if ( leftBalanceState === BalanceState.BALANCED ||
-        leftBalanceState === BalanceState.SLIGHTLY_UNBALANCED_LEFT ) {
+      leftBalanceState === BalanceState.SLIGHTLY_UNBALANCED_LEFT ) {
       return root.rotateWithLeftChild();
     }
     // Case 2
@@ -194,7 +204,7 @@ AVL.prototype.deleteBalance = function ( root ) {
     let rightBalanceState = getBalanceState( root.right );
     // Case 4
     if ( rightBalanceState === BalanceState.BALANCED ||
-        rightBalanceState === BalanceState.SLIGHTLY_UNBALANCED_RIGHT ) {
+      rightBalanceState === BalanceState.SLIGHTLY_UNBALANCED_RIGHT ) {
       return root.rotateWithRightChild();
     }
     // Case 3
@@ -218,31 +228,33 @@ AVL.prototype.compare = function ( a, b ) {
 
 /**
  * @private
- * @description Used to determine tree balance state, and subsequently balance the tree
- *   Taken from (https://github.com/gwtw/js-avl-tree)
- * @type {{UNBALANCED_RIGHT: number, BALANCED: number, UNBALANCED_LEFT: number}}
+ * @description Used to determine tree balance state, and subsequently balance
+ *   the tree Taken from (https://github.com/gwtw/js-avl-tree)
+ * @type {{UNBALANCED_RIGHT: number, BALANCED: number, UNBALANCED_LEFT:
+ *   number}}
  */
-let BalanceState = {
-  UNBALANCED_RIGHT          : 1,
-  SLIGHTLY_UNBALANCED_RIGHT : 2,
-  BALANCED                  : 3,
-  SLIGHTLY_UNBALANCED_LEFT  : 4,
-  UNBALANCED_LEFT           : 5
+const BalanceState = {
+  UNBALANCED_RIGHT: 1,
+  SLIGHTLY_UNBALANCED_RIGHT: 2,
+  BALANCED: 3,
+  SLIGHTLY_UNBALANCED_LEFT: 4,
+  UNBALANCED_LEFT: 5
 };
 
 /**
  * @private
- * @description Gets the balance state of a node, indicating whether the left or right
- *   sub-trees are unbalanced. Taken from (https://github.com/gwtw/js-avl-tree)
+ * @description Gets the balance state of a node, indicating whether the left
+ *   or right sub-trees are unbalanced. Taken from
+ *   (https://github.com/gwtw/js-avl-tree)
  * @param {object} node The node to get the difference from.
  * @return {int} The BalanceState of the node.
  */
 function getBalanceState ( node ) {
   let heightDifference = node.leftHeight() - node.rightHeight();
   return heightDifference === -2
-      ? BalanceState.UNBALANCED_RIGHT
-      : heightDifference === 2
-          ? BalanceState.UNBALANCED_LEFT : 0;
+    ? BalanceState.UNBALANCED_RIGHT
+    : heightDifference === 2
+      ? BalanceState.UNBALANCED_LEFT : 0;
 }
 
 module.exports = AVL;
