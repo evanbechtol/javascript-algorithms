@@ -130,4 +130,16 @@ describe( "BST", () => {
       assert.deepEqual( BstInstance.tree.inOrderWalk(), [ 2, 4, 6 ], "inOrderWalk incorrect" );
     } );
   } );
+
+  describe( "Pre-order Walk", () => {
+    it( "Should return tree pre-order", () => {
+      assert.deepEqual( BstInstance.tree.preOrderWalk(), [ 4, 2, 6 ], "preOrderWalk incorrect" );
+    } );
+  } );
+
+  describe( "Post-order Walk", () => {
+    it( "Should return tree post-order", () => {
+      assert.deepEqual( BstInstance.tree.postOrderWalk(), [ 2, 6, 4 ], "postOrderWalk incorrect" );
+    } );
+  } );
 } );
