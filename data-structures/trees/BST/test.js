@@ -69,7 +69,7 @@ describe( "BST", () => {
     } );
 
     it( "Should return node for valid node", () => {
-      const key = 1;
+      const key = 4;
       const data = 10;
 
       const node = new TreeNode( null, null, null, key, data );
@@ -81,11 +81,11 @@ describe( "BST", () => {
     } );
 
     it( "Should make inserted node root", () => {
-      assert.equal( BstInstance.tree.root.key, 1, "Root key is not 1" );
+      assert.equal( BstInstance.tree.root.key, 4, "Root key is not 4" );
     } );
 
     it( "Should have all required properties", () => {
-      assert.containsAllKeys( BstInstance.tree.root, ["parent", "key", "data", "left", "right"],  "Does not contain all required keys" );
+      assert.containsAllKeys( BstInstance.tree.root, [ "parent", "key", "data", "left", "right" ], "Does not contain all required keys" );
     } );
 
     it( "Should have null left child", () => {
@@ -98,6 +98,24 @@ describe( "BST", () => {
 
     it( "Should have null parent", () => {
       assert.isNull( BstInstance.tree.root.parent, "Parent is not null" );
+    } );
+
+    it( "Should insert node as left child of root", () => {
+      const key = 2;
+      const data = 8;
+
+      const node = new TreeNode( null, null, null, key, data );
+      BstInstance.insert( node );
+      assert.deepEqual( BstInstance.tree.root.left.key, key, "Insert did not place node as left child" );
+    } );
+
+    it( "Should insert node as right child of root", () => {
+      const key = 6;
+      const data = 7;
+
+      const node = new TreeNode( null, null, null, key, data );
+      BstInstance.insert( node );
+      assert.deepEqual( BstInstance.tree.root.right.key, key, "Insert did not place node as right child" );
     } );
   } );
 } );
