@@ -63,7 +63,7 @@ describe( "BST", () => {
     } );
   } );
 
-  describe( "Insert Method", () => {
+  describe( "Insert Nodes", () => {
     it( "Should return null for invalid node", () => {
       assert.deepEqual( BstInstance.insert( null ), null, "Insert did not return null as expected" );
     } );
@@ -122,6 +122,12 @@ describe( "BST", () => {
   describe( "isBalanced Method", () => {
     it( "Should be balanced", () => {
       assert.equal( BstInstance.isBalanced(), true, "isBalanced returned false" );
+    } );
+  } );
+
+  describe( "In-order Walk", () => {
+    it( "Should return tree in-order", () => {
+      assert.deepEqual( BstInstance.tree.inOrderWalk(), [ 2, 4, 6 ], "inOrderWalk incorrect" );
     } );
   } );
 } );
