@@ -15,48 +15,51 @@ function BST ( tree = new Tree() ) {
 /**
  * @description Inserts a TreeNode object into the tree, in the proper position
  *   following BST properties
- * @param node {TreeNode} Instance of TreeNode object
+ * @param node {object} Instance of TreeNode object
  * @returns {*} Returns the inserted node
  */
 BST.prototype.insert = function ( node ) {
   if ( node ) {
-    let parent = null,
-      current = this.tree.root;
 
-    while ( current !== null ) {
-      parent = current;
-      current = util.compare( node.key, current.key ) < 0 ? current.left : current.right;
-    }
-
-    node.parent = parent;
-    if ( parent === null ) {
-      this.tree.root = node; // Tree was empty
-    } else if ( node.key < parent.key ) {
-      parent.left = node; // Insert left child
+    if ( this.tree.root === null ) {
+      this.tree.root = node;
     } else {
-      parent.right = node; // Insert right child
-    }
+      let parent = null;
+      let current = this.tree.root;
 
-    this.tree.size++;
-    return node;
+      while ( current !== null ) {
+        parent = current;
+        current = util.compare( node.key, current.key ) < 0 ? current.left : current.right;
+      }
+
+      node.parent = parent;
+      if ( parent === null ) {
+        this.tree.root = node; // Tree was empty
+      } else if ( node.key < parent.key ) {
+        parent.left = node; // Insert left child
+      } else {
+        parent.right = node; // Insert right child
+      }
+
+      this.tree.size++;
+      return node;
+    }
   }
 
-  return null;
+  return node;
 };
 
 /**
  * @description Attempts to delete the node from the tree provided.
- * @param node {TreeNode} Instance of TreeNode object
+ * @param node {object} Instance of TreeNode object
  * @returns {*} Returns deleted node if node was found and deleted, otherwise
  *   returns null
  */
 BST.prototype.delete = function ( node ) {
   if ( node ) {
-    if ( node.left === null ) {
-      if ( node.left === null ) {
-        this.transplant( node, node.right );
-      }
-    } else if ( node.right === null ) {
+    if ( !node.left ) {
+      this.transplant( node, node.right );
+    } else if ( !node.right ) {
       this.transplant( node, node.right );
     } else {
       let min = this.tree.minimum( node.right );
@@ -80,8 +83,8 @@ BST.prototype.delete = function ( node ) {
 /**
  * @description Transplants a subtree to a new parent. This is used when
  *   deleting nodes, and rearranging the BST
- * @param subtreeA {TreeNode} Instance of TreeNode object
- * @param subtreeB {TreeNode} Instance of TreeNode object
+ * @param subtreeA {object} Instance of TreeNode object
+ * @param subtreeB {object} Instance of TreeNode object
  */
 BST.prototype.transplant = function ( subtreeA, subtreeB ) {
   if ( subtreeA.parent === null ) {
@@ -95,7 +98,7 @@ BST.prototype.transplant = function ( subtreeA, subtreeB ) {
 
 /**
  * @description Determines the minimum depth of a binary tree node.
- * @param {TreeNode} node The node to check.
+ * @param {object} node The node to check.
  * @return {int} The minimum depth of a binary tree node.
  */
 BST.prototype.minDepth = function ( node ) {
@@ -104,7 +107,7 @@ BST.prototype.minDepth = function ( node ) {
 
 /**
  * @description Determines the maximum depth of a binary tree node.
- * @param {TreeNode} node The node to check.
+ * @param {object} node The node to check.
  * @return {int} The maximum depth of a binary tree node.
  */
 BST.prototype.maxDepth = function ( node ) {
@@ -157,6 +160,6 @@ function main () {
   console.log( `Is balanced: ${bst.isBalanced()}` );
 }
 
-main();
+//main();
 
 module.exports = BST;
