@@ -87,8 +87,7 @@ Tree.prototype.maximum = function ( node = this.root ) {
 
 /**
  * @description If all keys are distinct, the successor of the node is that
- *   which has the smallest key greater than
- *   'node'.
+ *   which has the smallest key greater than 'node'.
  * @param node {object} Instance of a TreeNode node
  * @returns {*} Returns the successor node for the provided node
  */
@@ -107,8 +106,7 @@ Tree.prototype.successor = function ( node ) {
 
 /**
  * @description If all keys are distinct, the predecessor of the node is that
- *   which has the smallest key less than
- *   'node'.
+ *   which has the smallest key less than 'node'.
  * @param node {object} Instance of a TreeNode node
  * @returns {*} Returns the predecessor node for the provided node
  */

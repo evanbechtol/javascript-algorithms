@@ -184,5 +184,17 @@ describe( "BST", () => {
         assert.deepEqual( BstInstance.tree.maximum().key, 6, "Maximum did not return correct result" );
       } );
     } );
+
+    describe( "Successor", () => {
+      it( "Should locate successor", () => {
+        assert.deepEqual( BstInstance.tree.successor(BstInstance.tree.root).key, 6, "Successor did not return correct result" );
+      } );
+    });
+
+    describe( "Predecessor", () => {
+      it( "Should locate predecessor", () => {
+        assert.deepEqual( BstInstance.tree.predecessor(BstInstance.tree.root).key, 2, "Predecessor did not return correct result" );
+      } );
+    });
   } );
 } );
