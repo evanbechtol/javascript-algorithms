@@ -160,4 +160,10 @@ describe( "BST", () => {
       assert.deepEqual( BstInstance.tree.postOrderWalk(), [ 1, 2, 6, 4 ], "postOrderWalk incorrect" );
     } );
   } );
+
+  describe( "Search", () => {
+    it( "Should locate a node by key, that exists", () => {
+      assert.deepEqual( BstInstance.search( 4 ).key, 4, "Search did not return correct node" );
+    } );
+  } );
 } );

@@ -83,21 +83,27 @@ BST.prototype.delete = function ( node ) {
 };
 
 /**
- * @description Search for a node that has the matching key provided
- * @param node {object} Node to compare against key
+ * @description Starting from the root, search for a node that has the
+ * matching key provided
  * @param key {*} The key to find in the BST
- * @return {null|any} Returns null if the node is not found,
+ * @return {null|Object} Returns null if the node is not found,
  * or the node if the node is found
  */
-BST.prototype.search = function( node, key ) {
+BST.prototype.search = function ( key ) {
+  let node = this.tree.root;
+
+  while ( node ) {
+    if ( util.compare( key, node.key ) < 0 ) {
+      node = node.left;
+    } else if ( util.compare( key, node.key ) > 0 ) {
+      node = node.right;
+    } else {
+      return node;
+    }
+  }
+
   if ( !node ) {
     return null;
-  } else if ( util.compare( key, node.key ) < 0 ) {
-    return this.search( node.left, key );
-  } else if ( util.compare( key, node.key ) > 0 ) {
-    return this.search( node.right, key );
-  } else {
-    return node;
   }
 };
 
