@@ -163,9 +163,19 @@ describe( "BST", () => {
 
   describe( "Querying", () => {
     describe( "Search", () => {
-      it( "Should locate a node by key, that exists", () => {
+      it( "Should locate the root node", () => {
         const returnedNode = BstInstance.search( 4 );
         assert.deepEqual( returnedNode.key, 4, "Search did not return correct node" );
+      } );
+
+      it( "Should locate a left child", () => {
+        const returnedNode = BstInstance.search( 1 );
+        assert.deepEqual( returnedNode.key, 1, "Search did not return correct node" );
+      } );
+
+      it( "Should locate a right child", () => {
+        const returnedNode = BstInstance.search( 6 );
+        assert.deepEqual( returnedNode.key, 6, "Search did not return correct node" );
       } );
 
       it( "Should return null if node with key does not exist", () => {
