@@ -178,5 +178,11 @@ describe( "BST", () => {
         assert.deepEqual( BstInstance.tree.minimum().key, 1, "Minimum did not return correct result" );
       } );
     } );
+
+    describe( "Maximum", () => {
+      it( "Should locate maximum key in tree", () => {
+        assert.deepEqual( BstInstance.tree.maximum().key, 6, "Maximum did not return correct result" );
+      } );
+    } );
   } );
 } );
