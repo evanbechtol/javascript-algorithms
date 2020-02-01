@@ -62,7 +62,7 @@ BST.prototype.delete = function ( node ) {
     if ( !node.left ) {
       this.transplant( node, node.right );
     } else if ( !node.right ) {
-      this.transplant( node, node.right );
+      this.transplant( node, node.left );
     } else {
       let min = this.tree.minimum( node.right );
 
@@ -114,12 +114,16 @@ BST.prototype.search = function ( key ) {
  * @param subtreeB {object} Instance of TreeNode object
  */
 BST.prototype.transplant = function ( subtreeA, subtreeB ) {
-  if ( subtreeA.parent === null ) {
+  if ( !subtreeA.parent ) {
     this.tree.root = subtreeB;
   } else if ( subtreeA === subtreeA.parent.left ) {
     subtreeA.parent.left = subtreeB;
   } else {
     subtreeA.parent.right = subtreeB;
+  }
+
+  if ( subtreeB ) {
+    subtreeB.parent = subtreeA.parent;
   }
 };
 
