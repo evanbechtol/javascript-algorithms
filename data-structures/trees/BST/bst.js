@@ -20,22 +20,20 @@ function BST ( tree = new Tree() ) {
  */
 BST.prototype.insert = function ( node ) {
   if ( node ) {
-    if ( this.tree.root === null ) {
+    if ( !this.tree.root ) {
       this.tree.root = node;
       this.tree.size++;
     } else {
       let parent = null;
       let current = this.tree.root;
 
-      while ( current !== null ) {
+      while ( current ) {
         parent = current;
         current = util.compare( node.key, current.key ) < 0 ? current.left : current.right;
       }
 
       node.parent = parent;
-      if ( parent === null ) {
-        this.tree.root = node; // Tree was empty
-      } else if ( node.key < parent.key ) {
+      if ( node.key < parent.key ) {
         node.parent = parent;
         parent.left = node;// Insert left child
       } else {
