@@ -153,44 +153,4 @@ BST.prototype.isBalanced = function () {
   return this.tree.root ? this.maxDepth( this.tree.root ) - this.minDepth( this.tree.root ) <= 1 : false;
 };
 
-function main () {
-  let bst = new BST(),
-    nodesToInsert = 8;
-
-  console.log( "---Build the BST---" );
-  for ( let i = 0; i < nodesToInsert; i++ ) {
-    let newNode = new TreeNode( null, null, null, util.randomNumber( 20, 1 ), util.randomNumber( 1000, 0 ) );
-    console.log( `Inserted node with key : ${bst.insert( newNode ).key}` );
-  }
-
-  let nodeToDelete = bst.tree.minimum(),
-    successorOfNodeToDelete = bst.tree.successor( nodeToDelete );
-
-  console.log( "---Tree Walking---" );
-  console.log( `Performing In order Walk of tree:` );
-  console.log( bst.tree.inOrderWalk() );
-
-  console.log( `Performing Pre order Walk of tree:` );
-  console.log( bst.tree.preOrderWalk() );
-
-  console.log( `Performing Post order Walk of tree:` );
-  console.log( bst.tree.postOrderWalk() );
-
-  console.log( "---Method Testing---" );
-  console.log( `Search for  node with key ${nodeToDelete.key} : ${bst.tree.get( nodeToDelete.key ) ? "Node found" : "Node not found"}` );
-  console.log( `Successor of ${nodeToDelete.key} is node ${successorOfNodeToDelete.key}` );
-  console.log( `Parent  of ${successorOfNodeToDelete.key} is node ${successorOfNodeToDelete.parent ? successorOfNodeToDelete.parent.key : "null"}` );
-  console.log( `Deleted node with key : ${bst.delete( nodeToDelete ) ? `Node with key ${nodeToDelete.key} deleted` : `Node with key ${nodeToDelete.key} not deleted`}` );
-  console.log( `Search for node with key ${nodeToDelete.key} : ${bst.tree.get( nodeToDelete.key ) ? "Node found" : "Node not found"}` );
-  console.log( `Deleting root node : ${bst.delete( bst.tree.root ) ? `Root node deleted` : `Root node not deleted`}` );
-  console.log( `New root node is: ${bst.tree.root.key}` );
-  console.log( `Minimum value in tree is: ${bst.tree.minimum().key}` );
-  console.log( `Maximum value in tree is: ${bst.tree.maximum().key}` );
-  console.log( bst.tree.inOrderWalk() );
-  console.log( `Number of nodes in tree: ${bst.tree.size}` );
-  console.log( `Is balanced: ${bst.isBalanced()}` );
-}
-
-//main();
-
 module.exports = BST;
