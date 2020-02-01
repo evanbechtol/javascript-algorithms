@@ -163,7 +163,12 @@ describe( "BST", () => {
 
   describe( "Search", () => {
     it( "Should locate a node by key, that exists", () => {
-      assert.deepEqual( BstInstance.search( 4 ).key, 4, "Search did not return correct node" );
+      const returnedNode = BstInstance.search( 4 );
+      assert.deepEqual( returnedNode.key, 4, "Search did not return correct node" );
+    } );
+
+    it( "Should return null if node with key does not exist", () => {
+      assert.deepEqual( BstInstance.search( -1 ), null, "Search did not return null" );
     } );
   } );
 } );
