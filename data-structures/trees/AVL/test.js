@@ -1,6 +1,6 @@
 const assert = require( "chai" ).assert,
   mocha = require( "mocha" ),
-  AVL = require( "../avl-tree" ),
+  AVL = require( "./avl-tree" ),
   TreeNode = require( "../tree-node" ),
   util = require( "../../../util" );
 

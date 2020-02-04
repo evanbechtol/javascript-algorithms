@@ -1,5 +1,5 @@
-const TreeNode = require( "./tree-node.js" ),
-  BST = require( "./BST/bst" );
+const TreeNode = require( "../tree-node.js" );
+const BST = require( "../BST/bst" );
 
 /**
  * @description AVL Trees are a type of BST, which abides by the following
@@ -71,7 +71,7 @@ AVL.prototype._insert = function ( node, root = this.tree.root ) {
     // Recurse into right subtree
     root.right = this._insert( node, root.right );
   } else {
-    // Duplicate key
+    // Duplicate key, reduce size to account for increment in insert method
     this.tree.size--;
   }
 
@@ -223,13 +223,13 @@ AVL.prototype.deleteBalance = function ( root ) {
  * @returns {number} Returns 1 if a > b, -1 if a < b, and 0 if a === b
  */
 AVL.prototype.compare = function ( a, b ) {
-  return a > b ? 1 : a < b ? -1 : 0;
+  return a - b;
 };
 
 /**
  * @private
  * @description Used to determine tree balance state, and subsequently balance
- *   the tree Taken from (https://github.com/gwtw/js-avl-tree)
+ *   the tree
  * @type {{UNBALANCED_RIGHT: number, BALANCED: number, UNBALANCED_LEFT:
  *   number}}
  */
@@ -244,8 +244,7 @@ const BalanceState = {
 /**
  * @private
  * @description Gets the balance state of a node, indicating whether the left
- *   or right sub-trees are unbalanced. Taken from
- *   (https://github.com/gwtw/js-avl-tree)
+ *   or right sub-trees are unbalanced.
  * @param {object} node The node to get the difference from.
  * @return {int} The BalanceState of the node.
  */
