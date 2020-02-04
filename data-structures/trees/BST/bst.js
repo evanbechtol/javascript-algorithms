@@ -20,22 +20,20 @@ function BST ( tree = new Tree() ) {
  */
 BST.prototype.insert = function ( node ) {
   if ( node ) {
-    if ( this.tree.root === null ) {
+    if ( !this.tree.root ) {
       this.tree.root = node;
       this.tree.size++;
     } else {
       let parent = null;
       let current = this.tree.root;
 
-      while ( current !== null ) {
+      while ( current ) {
         parent = current;
         current = util.compare( node.key, current.key ) < 0 ? current.left : current.right;
       }
 
       node.parent = parent;
-      if ( parent === null ) {
-        this.tree.root = node; // Tree was empty
-      } else if ( node.key < parent.key ) {
+      if ( node.key < parent.key ) {
         node.parent = parent;
         parent.left = node;// Insert left child
       } else {
@@ -62,7 +60,7 @@ BST.prototype.delete = function ( node ) {
     if ( !node.left ) {
       this.transplant( node, node.right );
     } else if ( !node.right ) {
-      this.transplant( node, node.right );
+      this.transplant( node, node.left );
     } else {
       let min = this.tree.minimum( node.right );
 
@@ -83,21 +81,27 @@ BST.prototype.delete = function ( node ) {
 };
 
 /**
- * @description Search for a node that has the matching key provided
- * @param node {object} Node to compare against key
+ * @description Starting from the root, search for a node that has the
+ * matching key provided
  * @param key {*} The key to find in the BST
- * @return {null|any} Returns null if the node is not found,
+ * @return {null|Object} Returns null if the node is not found,
  * or the node if the node is found
  */
-BST.prototype.search = function( node, key ) {
+BST.prototype.search = function ( key ) {
+  let node = this.tree.root;
+
+  while ( node ) {
+    if ( util.compare( key, node.key ) < 0 ) {
+      node = node.left;
+    } else if ( util.compare( key, node.key ) > 0 ) {
+      node = node.right;
+    } else {
+      return node;
+    }
+  }
+
   if ( !node ) {
     return null;
-  } else if ( util.compare( key, node.key ) < 0 ) {
-    return this.search( node.left, key );
-  } else if ( util.compare( key, node.key ) > 0 ) {
-    return this.search( node.right, key );
-  } else {
-    return node;
   }
 };
 
@@ -108,12 +112,16 @@ BST.prototype.search = function( node, key ) {
  * @param subtreeB {object} Instance of TreeNode object
  */
 BST.prototype.transplant = function ( subtreeA, subtreeB ) {
-  if ( subtreeA.parent === null ) {
+  if ( !subtreeA.parent ) {
     this.tree.root = subtreeB;
   } else if ( subtreeA === subtreeA.parent.left ) {
     subtreeA.parent.left = subtreeB;
   } else {
     subtreeA.parent.right = subtreeB;
+  }
+
+  if ( subtreeB ) {
+    subtreeB.parent = subtreeA.parent;
   }
 };
 
@@ -142,45 +150,5 @@ BST.prototype.maxDepth = function ( node ) {
 BST.prototype.isBalanced = function () {
   return this.tree.root ? this.maxDepth( this.tree.root ) - this.minDepth( this.tree.root ) <= 1 : false;
 };
-
-function main () {
-  let bst = new BST(),
-    nodesToInsert = 8;
-
-  console.log( "---Build the BST---" );
-  for ( let i = 0; i < nodesToInsert; i++ ) {
-    let newNode = new TreeNode( null, null, null, util.randomNumber( 20, 1 ), util.randomNumber( 1000, 0 ) );
-    console.log( `Inserted node with key : ${bst.insert( newNode ).key}` );
-  }
-
-  let nodeToDelete = bst.tree.minimum(),
-    successorOfNodeToDelete = bst.tree.successor( nodeToDelete );
-
-  console.log( "---Tree Walking---" );
-  console.log( `Performing In order Walk of tree:` );
-  console.log( bst.tree.inOrderWalk() );
-
-  console.log( `Performing Pre order Walk of tree:` );
-  console.log( bst.tree.preOrderWalk() );
-
-  console.log( `Performing Post order Walk of tree:` );
-  console.log( bst.tree.postOrderWalk() );
-
-  console.log( "---Method Testing---" );
-  console.log( `Search for  node with key ${nodeToDelete.key} : ${bst.tree.get( nodeToDelete.key ) ? "Node found" : "Node not found"}` );
-  console.log( `Successor of ${nodeToDelete.key} is node ${successorOfNodeToDelete.key}` );
-  console.log( `Parent  of ${successorOfNodeToDelete.key} is node ${successorOfNodeToDelete.parent ? successorOfNodeToDelete.parent.key : "null"}` );
-  console.log( `Deleted node with key : ${bst.delete( nodeToDelete ) ? `Node with key ${nodeToDelete.key} deleted` : `Node with key ${nodeToDelete.key} not deleted`}` );
-  console.log( `Search for node with key ${nodeToDelete.key} : ${bst.tree.get( nodeToDelete.key ) ? "Node found" : "Node not found"}` );
-  console.log( `Deleting root node : ${bst.delete( bst.tree.root ) ? `Root node deleted` : `Root node not deleted`}` );
-  console.log( `New root node is: ${bst.tree.root.key}` );
-  console.log( `Minimum value in tree is: ${bst.tree.minimum().key}` );
-  console.log( `Maximum value in tree is: ${bst.tree.maximum().key}` );
-  console.log( bst.tree.inOrderWalk() );
-  console.log( `Number of nodes in tree: ${bst.tree.size}` );
-  console.log( `Is balanced: ${bst.isBalanced()}` );
-}
-
-//main();
 
 module.exports = BST;

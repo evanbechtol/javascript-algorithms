@@ -137,11 +137,11 @@ describe( "BST", () => {
     } );
   } );
 
-  /*describe( "isBalanced Method", () => {
-   it( "Should be balanced", () => {
-   assert.equal( BstInstance.isBalanced(), true, "isBalanced returned false" );
-   } );
-   } );*/
+  describe( "isBalanced Method", () => {
+    it( "Should be balanced", () => {
+      assert.equal( BstInstance.isBalanced(), true, "isBalanced returned false" );
+    } );
+  } );
 
   describe( "In-order Walk", () => {
     it( "Should return tree in-order", () => {
@@ -158,6 +158,78 @@ describe( "BST", () => {
   describe( "Post-order Walk", () => {
     it( "Should return tree post-order", () => {
       assert.deepEqual( BstInstance.tree.postOrderWalk(), [ 1, 2, 6, 4 ], "postOrderWalk incorrect" );
+    } );
+  } );
+
+  describe( "Querying", () => {
+    describe( "Search", () => {
+      it( "Should locate the root node", () => {
+        const returnedNode = BstInstance.search( 4 );
+        assert.equal( returnedNode.key, 4, "Search did not return correct node" );
+      } );
+
+      it( "Should locate a left child", () => {
+        const returnedNode = BstInstance.search( 1 );
+        assert.equal( returnedNode.key, 1, "Search did not return correct node" );
+      } );
+
+      it( "Should locate a right child", () => {
+        const returnedNode = BstInstance.search( 6 );
+        assert.equal( returnedNode.key, 6, "Search did not return correct node" );
+      } );
+
+      it( "Should return null if node with key does not exist", () => {
+        assert.equal( BstInstance.search( -1 ), null, "Search did not return null" );
+      } );
+    } );
+
+    describe( "Minimum", () => {
+      it( "Should locate minimum key in tree", () => {
+        assert.equal( BstInstance.tree.minimum().key, 1, "Minimum did not return correct result" );
+      } );
+    } );
+
+    describe( "Maximum", () => {
+      it( "Should locate maximum key in tree", () => {
+        assert.equal( BstInstance.tree.maximum().key, 6, "Maximum did not return correct result" );
+      } );
+    } );
+
+    describe( "Successor", () => {
+      it( "Should locate successor", () => {
+        assert.equal( BstInstance.tree.successor( BstInstance.tree.root ).key, 6, "Successor did not return correct result" );
+      } );
+    } );
+
+    describe( "Predecessor", () => {
+      it( "Should locate predecessor", () => {
+        assert.equal( BstInstance.tree.predecessor( BstInstance.tree.root ).key, 2, "Predecessor did not return correct result" );
+      } );
+    } );
+  } );
+
+  describe( "Delete", () => {
+    it( "Should delete a left child and return it", () => {
+      const nodeToDelete = BstInstance.search( 1 );
+      assert.equal( BstInstance.delete( nodeToDelete ).key, 1, "Delete did not return correct node" );
+    } );
+
+    it( "Should delete a right child and return it", () => {
+      const nodeToDelete = BstInstance.search( 6 );
+      assert.equal( BstInstance.delete( nodeToDelete ).key, 6, "Delete did not return correct node" );
+    } );
+
+    it( "Should delete root node and return it", () => {
+      const nodeToDelete = BstInstance.search( 4 );
+      assert.equal( BstInstance.delete( nodeToDelete ).key, 4, "Delete did not return correct node" );
+    } );
+
+    it( "Should have updated root node", () => {
+      assert.equal( BstInstance.tree.root.key, 2, "Root is incorrect" );
+    } );
+
+    it( "Should have updated tree size", () => {
+      assert.equal( BstInstance.tree.size, 1, "Tree size is incorrect" );
     } );
   } );
 } );
