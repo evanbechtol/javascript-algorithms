@@ -50,7 +50,7 @@ function mergeSort ( arr= [], sortOrder = "asc" ) {
   const left = arr.slice( 0, middle );
   const right = arr.slice( middle );
 
-  return merge( mergeSort( left ), mergeSort( right ), sortOrder );
+  return merge( mergeSort( left, sortOrder ), mergeSort( right, sortOrder ), sortOrder );
 }
 
 

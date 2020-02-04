@@ -4,7 +4,7 @@ const { mergeSort } = require( "./merge-sort" );
 const utils = require( "../../util" );
 
 describe( "Merge Sort", () => {
-  const length = 10000;
+  const length = 1000000;
   const arr = utils.generateArray( length, length );
   let sortedArr = Array.from( arr );
   sortedArr.sort( utils.compare );
