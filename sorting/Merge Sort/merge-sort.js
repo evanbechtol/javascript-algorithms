@@ -36,13 +36,12 @@ function merge ( left, right, sortOrder = "asc" ) {
  *   Average-case: O(nlogn)
  *   Best-case: O(nlogn)
  *   Worst-case space complexity: O(n) total
- * @param arr {object} Array to be sorted
- * @param sortOrder {string} Direction that the array should be sorted in
+ * @param arr {array} Array to be sorted
  * @param sortOrder {string} Order to sort, can be set to either 'asc' or
  *   'desc'. Defaults to 'asc'
  * @returns {object} Returns sorted array
  */
-function mergeSort ( arr, sortOrder = "asc" ) {
+function mergeSort ( arr= [], sortOrder = "asc" ) {
   if ( arr.length <= 1 ) {
     return arr;
   }
