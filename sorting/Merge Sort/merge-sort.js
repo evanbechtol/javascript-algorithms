@@ -43,7 +43,7 @@ function merge ( left, right, sortOrder = "asc" ) {
  * @returns {object} Returns sorted array
  */
 function mergeSort ( arr, sortOrder = "asc" ) {
-  if ( arr.length === 1 ) {
+  if ( arr.length <= 1 ) {
     return arr;
   }
 
