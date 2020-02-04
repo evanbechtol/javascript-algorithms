@@ -11,12 +11,7 @@ module.exports = {
    * @returns {[]} Returns randomly generated array
    */
   generateArray: (length, max = 10) => {
-    let arr = [];
-    for (let i = length; i > 0; i--) {
-      // Fill with random data
-      arr.push(parseInt(Math.random() * max));
-    }
-    return arr;
+    return Array.from({length: length}, () => Math.floor(Math.random() * max));
   },
 
   /**
