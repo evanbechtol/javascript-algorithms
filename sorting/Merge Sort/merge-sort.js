@@ -1,5 +1,14 @@
 const util = require( "../../util" );
 
+/**
+ * @description Performs the merge step of the algorithm by combining arrays
+ * depending on the sort order provided (asc/desc).
+ * @param left {array} Left sub-array to merge
+ * @param right {array} Right sub-array to merge
+ * @param sortOrder {string} Can be either "asc" or "desc" to determine how the
+ * sub-arrays are merged
+ * @returns {*[]}
+ */
 function merge ( left, right, sortOrder = "asc" ) {
   let result = [];
   let leftIdx = 0;
@@ -45,16 +54,5 @@ function mergeSort ( arr, sortOrder = "asc" ) {
   return merge( mergeSort( left ), mergeSort( right ), sortOrder );
 }
 
-function main () {
-  let arr = [];
-  for ( let i = 0; i < 10; i++ ) {
-    arr.push( util.randomNumber() );
-  }
-  console.log( `Unsorted array           : ${arr}` );
-  console.log( `Sorted array ascending   : ${mergeSort( arr, "asc" )}` );
-  console.log( `Sorted array descending  : ${mergeSort( arr, "desc" )}` );
-}
-
-//main();
 
 module.exports = { mergeSort };
