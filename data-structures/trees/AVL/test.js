@@ -1,12 +1,12 @@
-const assert = require( "chai" ).assert,
-  mocha = require( "mocha" ),
-  AVL = require( "./avl-tree" ),
-  TreeNode = require( "../tree-node" ),
-  util = require( "../../../util" );
+const assert = require( "chai" ).assert;
+const mocha = require( "mocha" );
+const AVL = require( "./avl-tree" );
+const TreeNode = require( "../tree-node" );
+const util = require( "../../../util" );
 
 describe( "AVL Tree", () => {
-  let avl = new AVL(),
-    nodesToInsert = 1000;
+  let avl = new AVL();
+  const nodesToInsert = 1000;
 
   it( "Should initialize as an empty tree", () => {
     assert.equal( avl.tree.size, 0, `Did not initialize properly` );
@@ -28,8 +28,8 @@ describe( "AVL Tree", () => {
   } );
 
   it( "Should ignore inserting a duplicate node", () => {
-    let minNode = Object.assign( {}, avl.tree.get( avl.tree.minimum().key ) ),
-      previousSize = avl.tree.size;
+    const minNode = Object.assign( {}, avl.tree.get( avl.tree.minimum().key ) );
+    const previousSize = avl.tree.size;
 
     minNode.data = "Attempting to replace node";
     avl.insert( minNode );
@@ -46,8 +46,8 @@ describe( "AVL Tree", () => {
   } );
 
   it( "Should not delete a non-existent key", () => {
-    let previousSize = avl.tree.size,
-      rootNode = avl.tree.root;
+    const previousSize = avl.tree.size;
+    const rootNode = avl.tree.root;
 
     avl.delete( Number.MIN_SAFE_INTEGER );
     assert.equal( avl.tree.size, previousSize, "Duplicate node was inserted" );
@@ -56,8 +56,8 @@ describe( "AVL Tree", () => {
 
 
   it( "Should retrieve, and delete the minimum node, then update tree size", () => {
-    let minNode = Object.assign( {}, avl.tree.get( avl.tree.minimum().key ) ),
-      previousSize = avl.tree.size;
+    const minNode = Object.assign( {}, avl.tree.get( avl.tree.minimum().key ) );
+    const previousSize = avl.tree.size;
 
     assert.equal( avl.delete( minNode.key ), minNode.key, "Delete did not return the key of the minimum node" );
     assert.notExists( avl.tree.get( minNode.key ), "Minimum node was not deleted" );
@@ -65,8 +65,8 @@ describe( "AVL Tree", () => {
   } );
 
   it( "Should retrieve, and delete the maximum node, then update tree size", () => {
-    let maxNode = Object.assign( {}, avl.tree.get( avl.tree.maximum().key ) ),
-      previousSize = avl.tree.size;
+    const maxNode = Object.assign( {}, avl.tree.get( avl.tree.maximum().key ) );
+    const previousSize = avl.tree.size;
 
     assert.equal( avl.delete( maxNode.key ), maxNode.key, "Delete did not return the key of the maximum node" );
     assert.notExists( avl.tree.get( maxNode.key ), "Maximum node was not deleted" );
@@ -74,8 +74,8 @@ describe( "AVL Tree", () => {
   } );
 
   it( "Should remain balanced after deleting node with 2 children", () => {
-    let leftChildOfRoot = Object.assign( {}, avl.tree.root.left ),
-      previousSize = avl.tree.size;
+    const leftChildOfRoot = Object.assign( {}, avl.tree.root.left );
+    const previousSize = avl.tree.size;
 
     avl.delete( leftChildOfRoot.key );
     assert.notExists( avl.tree.get( leftChildOfRoot.key ), "Left node was not deleted" );

@@ -1,5 +1,12 @@
 const TreeNode = require( "../tree-node.js" );
 const BST = require( "../BST/bst" );
+const BalanceState = {
+  UNBALANCED_RIGHT: 1,
+  SLIGHTLY_UNBALANCED_RIGHT: 2,
+  BALANCED: 3,
+  SLIGHTLY_UNBALANCED_LEFT: 4,
+  UNBALANCED_LEFT: 5
+};
 
 /**
  * @description AVL Trees are a type of BST, which abides by the following
@@ -132,7 +139,7 @@ AVL.prototype._delete = function ( key, root ) {
        *   1) Smallest key in the right subtree
        *   2) Largest key in the left subtree
        */
-      let successor = this.tree.minimum( root.right );
+      const successor = this.tree.minimum( root.right );
       root.key = successor.key;
       root.data = successor.data;
       root.right = this._delete( successor.key, root.right );
@@ -155,7 +162,7 @@ AVL.prototype._delete = function ( key, root ) {
  */
 AVL.prototype.balance = function ( node, root ) {
   root.height = root.getMaxHeight( root.leftHeight(), root.rightHeight() );
-  let balanceState = getBalanceState( root );
+  const balanceState = getBalanceState( root );
 
   if ( balanceState === BalanceState.UNBALANCED_LEFT ) {
     if ( this.compare( node.key, root.left.key ) < 0 ) {
@@ -186,7 +193,8 @@ AVL.prototype.balance = function ( node, root ) {
  */
 AVL.prototype.deleteBalance = function ( root ) {
   root.height = Math.max( root.leftHeight(), root.rightHeight() ) + 1;
-  let balanceState = getBalanceState( root );
+  const balanceState = getBalanceState( root );
+
   if ( balanceState === BalanceState.UNBALANCED_LEFT ) {
     let leftBalanceState = getBalanceState( root.left );
     // Case 1
@@ -228,28 +236,13 @@ AVL.prototype.compare = function ( a, b ) {
 
 /**
  * @private
- * @description Used to determine tree balance state, and subsequently balance
- *   the tree
- * @type {{UNBALANCED_RIGHT: number, BALANCED: number, UNBALANCED_LEFT:
- *   number}}
- */
-const BalanceState = {
-  UNBALANCED_RIGHT: 1,
-  SLIGHTLY_UNBALANCED_RIGHT: 2,
-  BALANCED: 3,
-  SLIGHTLY_UNBALANCED_LEFT: 4,
-  UNBALANCED_LEFT: 5
-};
-
-/**
- * @private
  * @description Gets the balance state of a node, indicating whether the left
  *   or right sub-trees are unbalanced.
  * @param {object} node The node to get the difference from.
  * @return {int} The BalanceState of the node.
  */
 function getBalanceState ( node ) {
-  let heightDifference = node.leftHeight() - node.rightHeight();
+  const heightDifference = node.leftHeight() - node.rightHeight();
   return heightDifference === -2
     ? BalanceState.UNBALANCED_RIGHT
     : heightDifference === 2
