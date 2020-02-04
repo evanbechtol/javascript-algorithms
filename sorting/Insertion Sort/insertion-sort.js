@@ -36,16 +36,4 @@ function insertionSort ( arr, sortOrder = 'asc' ) {
   return [];
 }
 
-function main () {
-  let arr = [];
-  for ( let i = 0; i < 10; i++ ) {
-    arr.push( util.randomNumber() );
-  }
-  console.log( `Unsorted array           : ${arr}` );
-  console.log( `Sorted array ascending   : ${insertionSort( arr, 'asc' )}` );
-  console.log( `Sorted array descending  : ${insertionSort( arr, 'desc' )}` );
-}
-
-// main();
-
 module.exports = { insertionSort };
