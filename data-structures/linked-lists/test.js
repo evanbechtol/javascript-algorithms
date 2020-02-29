@@ -25,6 +25,10 @@ describe( "LinkedList", () => {
     it( "add", () => {
       assert.isFunction( list.add, "Method 'add' does not exist" );
     } );
+
+    it( "insertAt", () => {
+      assert.isFunction( list.insertAt, "Method 'insertAt' does not exist" );
+    } );
   } );
 
   describe( "Initialization", () => {
