@@ -6,8 +6,6 @@ class LinkedList {
     this.size = 0;
   }
 
-  // Core methods
-  // Todo: implement add(element)
   /**
    * @description Add an element to the end of the linked list
    * @param element {*} Data to populate the node with
@@ -37,7 +35,15 @@ class LinkedList {
     this.size++;
   }
 
-  // Todo: implement insertAt(element, location)
+  /**
+   * @description Inserts a node at the given index in the list
+   * @param element {*} Data to insert for the Node
+   * @param index {number} Index to insert the new Node at
+   */
+  insertAt(element, index) {
+
+  }
+
   // Todo: implement removeFrom(location)
   // Todo: implement removeElement(location)
 
