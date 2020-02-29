@@ -41,7 +41,7 @@ describe( "LinkedList", () => {
     } );
   } );
 
-  describe( "Add", () => {
+  describe( "add", () => {
     it( "Should throw error with null or defined data", () => {
       try {
         list.add( null );
@@ -72,4 +72,8 @@ describe( "LinkedList", () => {
       assert.equal( list.size, 1, "list.size is not 1" );
     } );
   } );
+
+  describe( "insertAt", () => {
+
+  })
 } );
