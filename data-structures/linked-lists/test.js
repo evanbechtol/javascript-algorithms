@@ -40,4 +40,36 @@ describe( "LinkedList", () => {
       assert.equal( list.size, 0, "List does not have size 0" );
     } );
   } );
+
+  describe( "Add", () => {
+    it( "Should throw error with null or defined data", () => {
+      try {
+        list.add( null );
+      } catch ( err ) {
+        assert.equal( err.message, "Element cannot be null or undefined", "Error message incorrect" );
+      }
+    } );
+
+    it( "Should have size of 0", () => {
+      assert.equal( list.size, 0, "List does not have size 0" );
+    } );
+
+    it( "Should not throw error with defined data", () => {
+      const data = { a: 1, b: "abc", c: [ 1, 2, 3 ] };
+      list.add( data );
+      assert.equal( list.size, 1, "Size does not equal 1" );
+    } );
+
+    it( "Should have inserted node as head", () => {
+      assert.equal( list.head.data.a, 1, "Node was not inserted as head" );
+    } );
+
+    it( "Should have head.next === null", () => {
+      assert.isNull( list.head.next, "list.head.next is not null" );
+    } );
+
+    it( "Should have size === 1", () => {
+      assert.equal( list.size, 1, "list.size is not 1" );
+    } );
+  } );
 } );
