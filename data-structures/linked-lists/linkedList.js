@@ -11,7 +11,7 @@ class LinkedList {
    * @param element {*} Data to populate the node with
    */
   add ( element ) {
-    if ( !element ) {
+    if ( !this.dataIsValid( element ) ) {
       throw new Error( "Element cannot be null or undefined" );
     }
 
@@ -45,6 +45,8 @@ class LinkedList {
 
     if ( indexInvalid ) {
       throw new Error( "Invalid index provided" );
+    } else if ( !this.dataIsValid( element ) ) {
+      throw new Error( "Element cannot be null or undefined" );
     } else {
       let node = new Node( element );
 
@@ -83,6 +85,15 @@ class LinkedList {
   // Todo: implement isEmpty
   // Todo: implement sizeOfList
   // Todo: implement printList
+
+  /**
+   * @description Determines if data is null or undefined
+   * @param data {*} Data to validate
+   * @return {boolean} Returns true if data is not null and not undefined
+   */
+  dataIsValid ( data ) {
+    return !!data;
+  }
 }
 
 module.exports = LinkedList;

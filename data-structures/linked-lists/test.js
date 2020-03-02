@@ -100,5 +100,33 @@ describe( "LinkedList", () => {
         assert.equal( err.message, "Invalid index provided", "Error message incorrect" );
       }
     } );
-  })
+
+    it( "Should throw error when data is null", () => {
+      try {
+        const data = null;
+        list.insertAt( data, 0 );
+      } catch ( err ) {
+        assert.equal( err.message, "Element cannot be null or undefined", "Error message incorrect" );
+      }
+    } );
+
+    it( "Should throw error when data is undefined", () => {
+      try {
+        const data = undefined;
+        list.insertAt( data, 0 );
+      } catch ( err ) {
+        assert.equal( err.message, "Element cannot be null or undefined", "Error message incorrect" );
+      }
+    } );
+
+    it( "Should insert node as head when index is 0", () => {
+      const data = { a: 5, b: "acdddde", c: [ 5, 6, 7 ] };
+      list.insertAt( data, 0 );
+      assert.equal(list.head.data.a, 5, "Incorrect node as head")
+    } );
+
+    it( "Should have size === 2", () => {
+      assert.equal( list.size, 2, "list.size is not 2" );
+    } );
+  } );
 } );
