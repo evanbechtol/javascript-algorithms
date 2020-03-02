@@ -41,7 +41,7 @@ class LinkedList {
    * @param index {number} Index to insert the new Node at
    */
   insertAt ( element, index ) {
-    const indexInvalid = typeof index !== "number" || index < 0 || ( index > 0 && index > this.size );
+    const indexInvalid = this.isIndexInvalid(index);
 
     if ( indexInvalid ) {
       throw new Error( "Invalid index provided" );
@@ -93,6 +93,15 @@ class LinkedList {
    */
   dataIsValid ( data ) {
     return !!data;
+  }
+
+  /**
+   * @description Determines if the index provided is invalid or not
+   * @param index {number} Index to validate
+   * @return {boolean|boolean} Returns true if the index is invalid, false otherwise
+   */
+  isIndexInvalid ( index ) {
+    return typeof index !== "number" || index < 0 || ( index > 0 && index > this.size );
   }
 }
 
