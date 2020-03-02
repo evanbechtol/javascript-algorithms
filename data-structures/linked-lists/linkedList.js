@@ -78,7 +78,41 @@ class LinkedList {
     }
   }
 
-  // Todo: implement removeFrom(location)
+  /**
+   * @description Remove the element at the specified index, and return it
+   * @param index {number} Index to remove
+   * @return {null}
+   */
+  removeFrom ( index ) {
+    const indexInvalid = this.isIndexInvalid( index );
+
+    if ( indexInvalid ) {
+      throw new Error( "Invalid index provided" );
+    } else {
+      let current = this.head;
+      let previous;
+      let iterator = 0;
+
+      // If index == 0, head element is deleted
+      if ( index === 0 ) {
+        this.head = current.next;
+      } else {
+        // Iterate to the index in the list to delete
+        while ( iterator < index ) {
+          iterator++;
+          previous = current;
+          current = current.next;
+        }
+
+        // Remove the element from the list
+        previous.next = current.next;
+        this.size--;
+
+        return current;
+      }
+    }
+  }
+
   // Todo: implement removeElement(location)
 
   // Helper Methods
