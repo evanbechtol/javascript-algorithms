@@ -92,6 +92,13 @@ describe( "LinkedList", () => {
       }
     } );
 
-
+    it( "Should throw error when index is greater than size", () => {
+      try {
+        const data = { a: 3, b: "acde", c: [ 5, 6, 7 ] };
+        list.insertAt( data, 1000 );
+      } catch ( err ) {
+        assert.equal( err.message, "Invalid index provided", "Error message incorrect" );
+      }
+    } );
   })
 } );
