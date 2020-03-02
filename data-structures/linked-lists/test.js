@@ -122,11 +122,18 @@ describe( "LinkedList", () => {
     it( "Should insert node as head when index is 0", () => {
       const data = { a: 5, b: "acdddde", c: [ 5, 6, 7 ] };
       list.insertAt( data, 0 );
-      assert.equal(list.head.data.a, 5, "Incorrect node as head")
+      assert.equal( list.head.data.a, 5, "Incorrect node as head" );
     } );
 
     it( "Should have size === 2", () => {
       assert.equal( list.size, 2, "list.size is not 2" );
+    } );
+
+    it( "Should insert node between two nodes", () => {
+      const data = { a: 6, b: "test", c: [ 5, 6, 7 ] };
+      list.insertAt( data, 1 );
+      const isValid = list.head.next.data.a === 6 && list.head.next.next.data.a === 1;
+      assert.equal(isValid, true, "Node not inserted in correct position");
     } );
   } );
 } );
