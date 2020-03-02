@@ -188,7 +188,6 @@ describe( "LinkedList", () => {
       } );
 
       it( "Should have size === 1", () => {
-        deletedElement = list.removeFrom( 0 );
         assert.equal( list.size, 1, "Size is incorrect" );
       } );
     } );
