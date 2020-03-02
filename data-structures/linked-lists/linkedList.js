@@ -106,10 +106,11 @@ class LinkedList {
 
         // Remove the element from the list
         previous.next = current.next;
-        this.size--;
-
-        return current;
       }
+
+      this.size--;
+
+      return current;
     }
   }
 
