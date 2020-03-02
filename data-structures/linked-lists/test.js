@@ -136,4 +136,8 @@ describe( "LinkedList", () => {
       assert.equal(isValid, true, "Node not inserted in correct position");
     } );
   } );
+
+  describe( "removeFrom", () => {
+
+  } );
 } );
