@@ -74,6 +74,24 @@ describe( "LinkedList", () => {
   } );
 
   describe( "insertAt", () => {
+    it( "Should throw error when index is not a number", () => {
+      try {
+        const data = { a: 3, b: "acde", c: [ 5, 6, 7 ] };
+        list.insertAt( data, "1" );
+      } catch ( err ) {
+        assert.equal( err.message, "Invalid index provided", "Error message incorrect" );
+      }
+    } );
+
+    it( "Should throw error when index is less than 0", () => {
+      try {
+        const data = { a: 3, b: "acde", c: [ 5, 6, 7 ] };
+        list.insertAt( data, -1 );
+      } catch ( err ) {
+        assert.equal( err.message, "Invalid index provided", "Error message incorrect" );
+      }
+    } );
+
 
   })
 } );

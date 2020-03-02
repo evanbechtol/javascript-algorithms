@@ -40,8 +40,40 @@ class LinkedList {
    * @param element {*} Data to insert for the Node
    * @param index {number} Index to insert the new Node at
    */
-  insertAt(element, index) {
+  insertAt ( element, index ) {
+    const indexInvalid = typeof index !== "number" || index < 0 || ( index > 0 && index > this.size );
 
+    if ( indexInvalid ) {
+      throw new Error( "Invalid index provided" );
+    } else {
+      let node = new Node( element );
+
+      // If index === 0, make node head
+      if ( index === 0 ) {
+        node.next = this.head;
+        this.head = node;
+      } else {
+        let current;
+        let previous;
+
+        current = this.head;
+        let iterator = 0;
+
+        // Iterate over the list to get to the index that we will
+        // insert the new node at
+        while ( iterator < index ) {
+          iterator++;
+          previous = current;
+          current = current.next;
+        }
+
+        // Add the element
+        node.next = current;
+        previous.next = node;
+      }
+
+      this.size++;
+    }
   }
 
   // Todo: implement removeFrom(location)
