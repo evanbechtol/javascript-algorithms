@@ -8,14 +8,18 @@ class LinkedList {
 
   /**
    * @description Add an element to the end of the linked list
+   * @param key {number|string} Unique key to identify node by
    * @param element {*} Data to populate the node with
    */
-  add ( element ) {
+  add ( key, element ) {
+    if ( !key ) {
+      throw new Error( "Key cannot be null or undefined" );
+    }
     if ( !this.dataIsValid( element ) ) {
       throw new Error( "Element cannot be null or undefined" );
     }
 
-    const node = new Node( element );
+    const node = new Node( key, element );
 
     // If list is empty, add node as head of list
     if ( !this.head ) {
@@ -37,18 +41,19 @@ class LinkedList {
 
   /**
    * @description Inserts a node at the given index in the list
+   * @param key {number|string} Unique key to identify node by
    * @param element {*} Data to insert for the Node
    * @param index {number} Index to insert the new Node at
    */
-  insertAt ( element, index ) {
-    const indexInvalid = this.isIndexInvalid(index);
+  insertAt ( key, element, index ) {
+    const indexInvalid = this.isIndexInvalid( index );
 
     if ( indexInvalid ) {
       throw new Error( "Invalid index provided" );
     } else if ( !this.dataIsValid( element ) ) {
       throw new Error( "Element cannot be null or undefined" );
     } else {
-      let node = new Node( element );
+      let node = new Node( key, element );
 
       // If index === 0, make node head
       if ( index === 0 ) {
@@ -81,7 +86,7 @@ class LinkedList {
   /**
    * @description Remove the element at the specified index, and return it
    * @param index {number} Index to remove
-   * @return {null}
+   * @return {object} Returns the object that was removed from the list
    */
   removeFrom ( index ) {
     const indexInvalid = this.isIndexInvalid( index );
@@ -133,7 +138,8 @@ class LinkedList {
   /**
    * @description Determines if the index provided is invalid or not
    * @param index {number} Index to validate
-   * @return {boolean|boolean} Returns true if the index is invalid, false otherwise
+   * @return {boolean|boolean} Returns true if the index is invalid, false
+   *   otherwise
    */
   isIndexInvalid ( index ) {
     return typeof index !== "number" || index < 0 || ( index > 0 && index > this.size );
