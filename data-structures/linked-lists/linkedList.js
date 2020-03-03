@@ -119,7 +119,39 @@ class LinkedList {
     }
   }
 
-  // Todo: implement removeElement(location)
+  /**
+   * @description Removes an element from the list using the key provided
+   * @param key {number|string} Unique key to look for
+   * @return {object|null} Returns the removed object if found, otherwise null
+   */
+  removeElementWithKey ( key ) {
+    if ( !key ) {
+      throw new Error( "Key cannot be null or undefined" );
+    } else {
+      let current = this.head;
+      let previous = null;
+
+      while ( current !== null ) {
+        // Compare element with current element
+        // If found, then remove it and return element
+        if ( current.key === key ) {
+          if ( !previous ) {
+            this.head = current.next;
+          } else {
+            previous.next = current.next;
+          }
+
+          this.size--;
+          return current;
+        }
+
+        previous = current;
+        current = current.next;
+      }
+
+      return null;
+    }
+  }
 
   // Helper Methods
   // Todo: implement isEmpty
