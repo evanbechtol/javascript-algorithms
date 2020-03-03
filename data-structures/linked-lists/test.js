@@ -7,12 +7,16 @@ describe( "Node", () => {
   const node = new Node();
 
   describe( "Initialization", () => {
-    it( "Should have null data", () => {
-      assert.isUndefined( node.data, "node.data is not null" );
+    it( "Should have undefined data", () => {
+      assert.isUndefined( node.data, "node.data is not undefined" );
     } );
 
     it( "Should have null next", () => {
       assert.isNull( node.next, 0, "node.next is not null" );
+    } );
+
+    it( "Should have undefined key", () => {
+      assert.isUndefined( node.key, "node.key is not undefined" );
     } );
   } );
 } );
@@ -47,9 +51,17 @@ describe( "LinkedList", () => {
 
   describe( "Methods", () => {
     describe( "add", () => {
+      it( "Should throw error with null or defined key", () => {
+        try {
+          list.add( null, null );
+        } catch ( err ) {
+          assert.equal( err.message, "Key cannot be null or undefined", "Error message incorrect" );
+        }
+      } );
+
       it( "Should throw error with null or defined data", () => {
         try {
-          list.add( null );
+          list.add( 1, null );
         } catch ( err ) {
           assert.equal( err.message, "Element cannot be null or undefined", "Error message incorrect" );
         }
@@ -61,7 +73,7 @@ describe( "LinkedList", () => {
 
       it( "Should not throw error with defined data", () => {
         const data = { a: 1, b: "abc", c: [ 1, 2, 3 ] };
-        list.add( data );
+        list.add( 1, data );
         assert.equal( list.size, 1, "Size does not equal 1" );
       } );
 
@@ -109,7 +121,7 @@ describe( "LinkedList", () => {
       it( "Should throw error when data is null", () => {
         try {
           const data = null;
-          list.insertAt( data, 0 );
+          list.insertAt( -1, data, 0 );
         } catch ( err ) {
           assert.equal( err.message, "Element cannot be null or undefined", "Error message incorrect" );
         }
@@ -118,7 +130,7 @@ describe( "LinkedList", () => {
       it( "Should throw error when data is undefined", () => {
         try {
           const data = undefined;
-          list.insertAt( data, 0 );
+          list.insertAt( -1, data, 0 );
         } catch ( err ) {
           assert.equal( err.message, "Element cannot be null or undefined", "Error message incorrect" );
         }
@@ -126,7 +138,7 @@ describe( "LinkedList", () => {
 
       it( "Should insert node as head when index is 0", () => {
         const data = { a: 5, b: "acdddde", c: [ 5, 6, 7 ] };
-        list.insertAt( data, 0 );
+        list.insertAt( 2, data, 0 );
         assert.equal( list.head.data.a, 5, "Incorrect node as head" );
       } );
 
@@ -136,7 +148,7 @@ describe( "LinkedList", () => {
 
       it( "Should insert node between two nodes", () => {
         const data = { a: 6, b: "test", c: [ 5, 6, 7 ] };
-        list.insertAt( data, 1 );
+        list.insertAt( 3, data, 1 );
         const isValid = list.head.next.data.a === 6 && list.head.next.next.data.a === 1;
         assert.equal( isValid, true, "Node not inserted in correct position" );
       } );
