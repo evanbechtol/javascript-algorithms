@@ -12,6 +12,7 @@ class LinkedList {
    * @param element {*} Data to populate the node with
    */
   add ( key, element ) {
+    // Todo remove this because it's below. Refactor tests
     if ( !key ) {
       throw new Error( "Key cannot be null or undefined" );
     }
@@ -163,6 +164,31 @@ class LinkedList {
   // Helper Methods
   isEmpty () {
     return this.size === 0;
+  }
+
+  /**
+   * @description Attempts to locate the index of the element
+   * that matches the provided key.
+   * @param key {number|string} Key to search for in list
+   * @return {number} Returns the index of element if located, otherwise
+   * returns -1
+   */
+  indexOfKey ( key ) {
+    if ( !this.isKeyValid( key ) ) {
+      throw new Error( "Key must be either a number or string" );
+    } else {
+      let current = this.head;
+      let index = 0;
+
+      while ( current !== null ) {
+        if ( current.key === key ) {
+          return index;
+        }
+        index++;
+        current = current.next;
+      }
+    }
+    return -1;
   }
 
   // Todo: implement sizeOfList
