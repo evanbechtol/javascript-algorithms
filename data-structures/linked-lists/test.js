@@ -78,7 +78,7 @@ describe( "LinkedList", () => {
       } );
 
       it( "Should have inserted node as head", () => {
-        assert.equal( list.head.data.a, 1, "Node was not inserted as head" );
+        assert.equal( list.head.key, 1, "Node was not inserted as head" );
       } );
 
       it( "Should have head.next === null", () => {
@@ -203,7 +203,38 @@ describe( "LinkedList", () => {
         assert.equal( list.size, 1, "Size is incorrect" );
       } );
     } );
+
+    describe( "removeElementWithKey", () => {
+      it( "Should throw error when key is undefined", () => {
+        try {
+          list.removeElementWithKey( undefined );
+        } catch ( err ) {
+          assert.equal( err.message, "Key cannot be null or undefined", "Error message incorrect" );
+        }
+      } );
+
+      it( "Should throw error when key is null", () => {
+        try {
+          list.removeElementWithKey( null );
+        } catch ( err ) {
+          assert.equal( err.message, "Key cannot be null or undefined", "Error message incorrect" );
+        }
+      } );
+
+      let deletedElement;
+
+      it( "Should return the removed element", () => {
+        deletedElement = list.removeElementWithKey( 1 );
+        assert.equal( deletedElement.key, 1, "Incorrect element returned" );
+      } );
+
+      it( "Should have size === 0", () => {
+        assert.equal( list.size, 0, "Size is incorrect" );
+      } );
+
+      it( "Should return null if key is not found", () => {
+        assert.isNull( list.removeElementWithKey( 1000 ), "Incorrect return value" );
+      } );
+    } );
   } );
-
-
 } );

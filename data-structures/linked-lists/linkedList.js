@@ -19,6 +19,10 @@ class LinkedList {
       throw new Error( "Element cannot be null or undefined" );
     }
 
+    if ( !this.isKeyValid( key ) ) {
+      throw new Error( "Key must be either a number or string" );
+    }
+
     const node = new Node( key, element );
 
     // If list is empty, add node as head of list
@@ -47,11 +51,14 @@ class LinkedList {
    */
   insertAt ( key, element, index ) {
     const indexInvalid = this.isIndexInvalid( index );
+    const isKeyValid = this.isKeyValid( key );
 
     if ( indexInvalid ) {
       throw new Error( "Invalid index provided" );
     } else if ( !this.dataIsValid( element ) ) {
       throw new Error( "Element cannot be null or undefined" );
+    } else if ( !isKeyValid ) {
+      throw new Error( "Key must be either a number or string" );
     } else {
       let node = new Node( key, element );
 
@@ -175,6 +182,16 @@ class LinkedList {
    */
   isIndexInvalid ( index ) {
     return typeof index !== "number" || index < 0 || ( index > 0 && index > this.size );
+  }
+
+  /**
+   * @description Determines if the key passed in is valid. A key cannot be null
+   * or undefined. Key must also be either a number or string.
+   * @param key {number|string} Key to check for validity
+   * @return {boolean} Returns true if key is valid, otherwise false.
+   */
+  isKeyValid ( key ) {
+    return typeof key === "string" || typeof key === "number";
   }
 }
 
