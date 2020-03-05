@@ -1,8 +1,8 @@
 const assert = require( "chai" ).assert;
 const mocha = require( "mocha" );
 const quickSort = require( "./quick-sort" );
-const { generateArray } = require( "../../util" );
-const utils = require( "../../util" );
+const { generateArray } = require( "../../../util" );
+const utils = require( "../../../util" );
 
 describe( "Quick Sort", () => {
   describe( "Exposed methods", () => {

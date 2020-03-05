@@ -1,7 +1,7 @@
 const assert = require( "chai" ).assert;
 const mocha = require( "mocha" );
 const { countingSort } = require( "./counting-sort" );
-const { generateArray } = require( "../../util" );
+const { generateArray } = require( "../../../util" );
 
 describe( "", () => {
   describe( "Exposed methods", () => {

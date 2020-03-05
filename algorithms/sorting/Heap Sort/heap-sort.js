@@ -1,4 +1,4 @@
-const { compare } = require( "../../util" );
+const { compare } = require( "../../../util" );
 
 /**
  * @description Retrieves the parent for the provided index

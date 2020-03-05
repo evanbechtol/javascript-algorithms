@@ -1,4 +1,4 @@
-const util = require( "../../util" );
+const util = require( "../../../util" );
 
 /**
  * @description Performs the merge step of the algorithm by combining arrays

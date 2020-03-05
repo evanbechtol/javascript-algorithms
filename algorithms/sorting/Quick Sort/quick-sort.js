@@ -1,4 +1,4 @@
-const { compare } = require( "../../util" );
+const { compare } = require( "../../../util" );
 
 /**
  * @description Performs the quicksort algorithm on the provided array
