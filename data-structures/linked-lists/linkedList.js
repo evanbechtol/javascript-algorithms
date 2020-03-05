@@ -195,8 +195,26 @@ class LinkedList {
    * @description Returns the current size of the list
    * @return {number}
    */
-  sizeOfList() {
+  sizeOfList () {
     return this.size;
+  }
+
+  /**
+   * @description Returns the list as a string with fields: index, key, data
+   * @return {string} Returns the list as a string
+   */
+  toString () {
+    let current = this.head;
+    let str = "";
+    let index = 0;
+
+    while ( current ) {
+      let data = typeof current.data === "object" ? JSON.stringify( current.data ) : current.data;
+      str += `index: ${index++}, key: ${current.key}, data: ${data}\n`;
+      current = current.next;
+    }
+
+    return str;
   }
 
   // Todo: implement sizeOfList

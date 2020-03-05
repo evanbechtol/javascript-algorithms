@@ -31,7 +31,7 @@ describe( "LinkedList", () => {
   // Todo: test isEmpty
   // Todo: test indexOf
   // Todo: test sizeOfList
-  // Todo: test printList
+  // Todo: test toString
 
   describe( "Interface", () => {
     it( "add", () => {
