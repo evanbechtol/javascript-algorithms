@@ -139,7 +139,7 @@ class LinkedList {
       let current = this.head;
       let previous = null;
 
-      while ( current !== null ) {
+      while ( current ) {
         // Compare element with current element
         // If found, then remove it and return element
         if ( current.key === key ) {
