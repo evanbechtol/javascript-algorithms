@@ -191,6 +191,14 @@ class LinkedList {
     return -1;
   }
 
+  /**
+   * @description Returns the current size of the list
+   * @return {number}
+   */
+  sizeOfList() {
+    return this.size;
+  }
+
   // Todo: implement sizeOfList
   // Todo: implement printList
   // Todo: implement function to check validity of all params
