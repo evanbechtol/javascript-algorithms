@@ -25,6 +25,14 @@ describe( "LinkedList", () => {
   // Create instance of class for our test
   const list = new LinkedList();
 
+  // Todo: test dataIsValid
+  // Todo: test isIndexValid
+  // Todo: test isKeyValid
+  // Todo: test isEmpty
+  // Todo: test indexOf
+  // Todo: test sizeOfList
+  // Todo: test printList
+
   describe( "Interface", () => {
     it( "add", () => {
       assert.isFunction( list.add, "Method 'add' does not exist" );
@@ -36,6 +44,26 @@ describe( "LinkedList", () => {
 
     it( "removeFrom", () => {
       assert.isFunction( list.removeFrom, "Method 'removeFrom' does not exist" );
+    } );
+
+    it( "removeElementWithKey", () => {
+      assert.isFunction( list.removeElementWithKey, "Method 'removeElementWithKey' does not exist" );
+    } );
+
+    it( "isEmpty", () => {
+      assert.isFunction( list.isEmpty, "Method 'isEmpty' does not exist" );
+    } );
+
+    it( "dataIsValid", () => {
+      assert.isFunction( list.dataIsValid, "Method 'dataIsValid' does not exist" );
+    } );
+
+    it( "isIndexInvalid", () => {
+      assert.isFunction( list.isIndexInvalid, "Method 'isIndexInvalid' does not exist" );
+    } );
+
+    it( "isKeyValid", () => {
+      assert.isFunction( list.isKeyValid, "Method 'isKeyValid' does not exist" );
     } );
   } );
 

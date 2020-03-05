@@ -161,10 +161,13 @@ class LinkedList {
   }
 
   // Helper Methods
-  // Todo: implement isEmpty
+  isEmpty () {
+    return this.size === 0;
+  }
+
   // Todo: implement sizeOfList
   // Todo: implement printList
-
+  // Todo: implement function to check validity of all params
   /**
    * @description Determines if data is null or undefined
    * @param data {*} Data to validate
