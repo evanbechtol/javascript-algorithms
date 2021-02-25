@@ -1,7 +1,7 @@
 const assert = require( "chai" ).assert;
 const mocha = require( "mocha" );
 const { mergeSort } = require( "./merge-sort" );
-const utils = require( "../../util" );
+const utils = require( "../../../util" );
 
 describe( "Merge Sort", () => {
   const length = 1000000;
