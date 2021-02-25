@@ -24,17 +24,19 @@ function knapsack ( items, W ) {
     return ( b.value / b.weight ) - ( a.value / a.weight );
   } );
 
-  while ( remainingItems.length > 0 ) {
+  while ( remainingItems.length ) {
     const remainingCapacity = W - totalWeight;
     remainingItems = remainingItems.filter( ( item ) => {
       return ( item.weight <= remainingCapacity );
     } );
-    if ( remainingItems.length === 0 ) {
+
+    if ( !remainingItems.length ) {
       continue;
     }
+
     const addedItem = remainingItems.shift();
-    totalValue = totalValue + addedItem.value;
-    totalWeight = totalWeight + addedItem.weight;
+    totalValue += addedItem.value;
+    totalWeight += addedItem.weight;
   }
   return totalValue.toFixed( 2 );
 }
