@@ -16,7 +16,7 @@ const items = [
 ];
 const maxWeight = 8;
 
-const knapsack = ( items, W ) => {
+function knapsack ( items, W ) {
   let totalValue = 0;
   let totalWeight = 0;
 
@@ -37,6 +37,6 @@ const knapsack = ( items, W ) => {
     totalWeight = totalWeight + addedItem.weight;
   }
   return totalValue.toFixed( 2 );
-};
+}
 
 console.log( knapsack( items, maxWeight ) );
